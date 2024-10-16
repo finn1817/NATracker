@@ -18,7 +18,7 @@ def main():
     parser = argparse.ArgumentParser(description='Simple Journal Tracker Setup')
     parser.add_argument('--dir', type=str, help='Directory to track')
     parser.add_argument('--remove', type=bool, help='Remove previous tracking')
-    parser.add_argument('-l', type=bool, help='List all tracked directories')
+    parser.add_argument('--list', type=bool, help='List all tracked directories')
     #parser.add_argument('--update', type=bool, help='Update NATracker (requires root)') skipping this for now
 
 
