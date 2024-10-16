@@ -1,6 +1,15 @@
-from ConfigStuff.Watchers import allWatchers, Watcher
 import ConfigStuff.Watchers as Watchers
 import threading
+import os
+
+class Watcher:
+    location: str
+    
+    def start(self):
+        os.system("python3 " + self.location + "/.NATracker/WatchThisFolder.py")
+
+class allWatchers:
+    watchers: list[Watcher]
 
 def main():
     watcherList = Watchers.getWatchers()
@@ -12,3 +21,4 @@ def main():
         threadList.append(thisThread)
     while True:
         pass
+
