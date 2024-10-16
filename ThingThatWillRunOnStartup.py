@@ -1,4 +1,3 @@
-import ConfigStuff.Watchers as Watchers
 import threading
 import os
 
@@ -10,6 +9,7 @@ class Watcher:
 
 class allWatchers:
     watchers: list[Watcher]
+import ConfigStuff.Watchers as Watchers
 
 def main():
     watcherList = Watchers.getWatchers()
