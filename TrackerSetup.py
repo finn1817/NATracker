@@ -19,6 +19,9 @@ def addTracking(directory):
     if not os.path.exists(directory):
         print(f"Directory {directory} does not exist.")
         return
+    if os.file.exists(directory + "/.NAJournal"):
+        print(f"Directory {directory} is already being tracked.")
+        return
     #interfacing with incron
     #root dir will be /opt/NAJournal due to install
 
@@ -27,27 +30,19 @@ def addTracking(directory):
     commandForFileRemove = directory + " IN_DELETE python3 /opt/NAJournal/Events/delFile.py $@/$#"
     commandForFileAdd = directory + " IN_CREATE python3 /opt/NAJournal/Events/addFile.py $@/$#"
     
-    #write to dir in .incron.d file
-    #check if the file exists
-    if not os.path.exists("/etc/incron.d/NAJournal"):
-        with open("/etc/incron.d/NAJournal", "w") as file:
-            file.write("#Start " + directory + "\n")
-            file.write(commandForFileAdd + "\n")
-            file.write(commandForFileRemove + "\n")
-            file.write(commandForFileAdd + "\n")
-    else:
-        #check if the directory is already being tracked
-        with open("/etc/incron.d/NAJournal", "r") as file:
-            lines = file.readlines()
-            for line in lines:
-                if line == "#Start " + directory + "\n":
-                    print(f"{directory} is already being tracked.")
-                    return
-        with open("/etc/incron.d/NAJournal", "a") as file:
-            file.write("#Start " + directory + "\n")
-            file.write(commandForFileAdd + "\n")
-            file.write(commandForFileRemove + "\n")
-            file.write(commandForFileAdd + "\n")    
+    #make sure we are root
+    if os.geteuid() != 0:
+        print("This command must be run as root")
+        return
+    #write to a temp file
+    with open(directory + "/.NAJournalIncron", "w") as f:
+        f.write(commandForFileAdd + "\n")
+
+    #add the .txt file to the incron daemon https://stackoverflow.com/questions/43878682/adding-job-to-incrontab-with-bash-script
+    os.system("""sudo incrontab -u root """ + directory + """/.NAJournalIncron""")
+
+
+    
     
     
 
