@@ -23,7 +23,7 @@ def addTracking(directory):
     #root dir will be /opt/NAJournal due to install
 
     #create a new file in /etc/incron.d/NAJournal
-    commandForFileAdd = directory + " IN_MODIFY python3 /opt/NAJournal/Events/changeFile.py $@/$#"
+    commandForFileAdd = directory + " IN_MODIFY notify-send \"My name is bash and I rock da house\""
     commandForFileRemove = directory + " IN_DELETE python3 /opt/NAJournal/Events/delFile.py $@/$#"
     commandForFileAdd = directory + " IN_CREATE python3 /opt/NAJournal/Events/addFile.py $@/$#"
     
