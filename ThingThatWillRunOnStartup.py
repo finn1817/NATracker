@@ -12,7 +12,7 @@ class allWatchers:
 import ConfigStuff.Watchers as Watchers
 
 def main():
-    watcherList = Watchers.getWatchers()
+    watcherList = Watchers.loadWatchers()
     threadList = []
     #start all the watchers with threads for each one.
     for watcher in watcherList:
