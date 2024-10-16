@@ -56,3 +56,5 @@ def addWatcher(location):
         print("Failed to save watcher")
         return
     
+
+addWatcher("/home/mcall/testing") 
