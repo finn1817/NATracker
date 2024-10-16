@@ -41,9 +41,6 @@ def checkForWatcher(location):
         if watcher.location == location:
             return True
     return False
-        
-    
-
     
 def addWatcher(location):
     exsistingWatcher = checkForWatcher(location)

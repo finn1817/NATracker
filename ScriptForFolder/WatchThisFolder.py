@@ -3,7 +3,9 @@ from inotify_simple import INotify, flags
 import argparse
 import time
 
-currentDir = "GET LATER"
+currentDir = os.getcwd()
+currentDir = currentDir.rsplit("/.NATracker")[0]
+print (currentDir)
 
 def watcher():
     inotify = INotify()
