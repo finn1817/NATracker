@@ -29,7 +29,7 @@ def addTracking(directory):
 
     #create a new file in /etc/incron.d/NAJournal
     commandForFileMod = directory + """ IN_MODIFY notify-send "My name is bash and I rock da house"""
-    commandForFileRemove = directory + " IN_DELETE python3 /opt/NAJournal/Events/delFile.py $@/$#"
+    commandForFileRemove = directory + " IN_DELETE python3 /opt/NAJournal/Events/delFile.py"
     commandForFileAdd = directory + " IN_CREATE python3 /opt/NAJournal/Events/addFile.py $@/$#"
     
     #make sure we are root
