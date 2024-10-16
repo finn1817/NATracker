@@ -15,7 +15,7 @@ def main():
     watcherList = Watchers.loadWatchers()
     threadList = []
     #start all the watchers with threads for each one.
-    for watcher in watcherList:
+    for watcher in watcherList.watchers:
         thisThread = threading.Thread(target=watcher.start)
         thisThread.start()
         threadList.append(thisThread)
