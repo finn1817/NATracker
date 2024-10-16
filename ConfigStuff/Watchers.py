@@ -5,11 +5,9 @@ should go into /etc/opt/xyz, where the xyz must match. That is, an application i
 /opt which requires host-specific configuration files should have a matching directory under /etc/opt into which 
 those configuration files go."""
 
-@dataClass
 class Watcher:
     location: str
 
-@dataClass
 class allWatchers:
     watchers: list[Watcher]
     
