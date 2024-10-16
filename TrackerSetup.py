@@ -1,5 +1,7 @@
 import argparse
 import os
+import sys
+
 
 def main():
     parser = argparse.ArgumentParser(description='Simple Journal Tracker Setup')
@@ -19,14 +21,14 @@ def addTracking(directory):
     if not os.path.exists(directory):
         print(f"Directory {directory} does not exist.")
         return
-    if os.file.exists(directory + "/.NAJournal"):
+    if os.path.exists(directory + "/.NAJournal"):
         print(f"Directory {directory} is already being tracked.")
         return
     #interfacing with incron
     #root dir will be /opt/NAJournal due to install
 
     #create a new file in /etc/incron.d/NAJournal
-    commandForFileAdd = directory + " IN_MODIFY notify-send \"My name is bash and I rock da house\""
+    commandForFileMod = directory + """ IN_MODIFY notify-send "My name is bash and I rock da house"""
     commandForFileRemove = directory + " IN_DELETE python3 /opt/NAJournal/Events/delFile.py $@/$#"
     commandForFileAdd = directory + " IN_CREATE python3 /opt/NAJournal/Events/addFile.py $@/$#"
     
@@ -36,7 +38,8 @@ def addTracking(directory):
         return
     #write to a temp file
     with open(directory + "/.NAJournalIncron", "w") as f:
-        f.write(commandForFileAdd + "\n")
+        f.write(commandForFileRemove + "\n")
+
 
     #add the .txt file to the incron daemon https://stackoverflow.com/questions/43878682/adding-job-to-incrontab-with-bash-script
     os.system("""sudo incrontab -u root """ + directory + """/.NAJournalIncron""")
@@ -46,5 +49,5 @@ def addTracking(directory):
     
     
 
-if __name__ == "__main__":
-    main()
+
+addTracking("/home/mcall/testing")
