@@ -5,7 +5,7 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-REPO_URL="repo"
+REPO_URL="https://github.com/mcallbosco/NATracker.git"
 
 if [ -d "/opt/NATracker" ]; then
     rm -rf /opt/NATracker
@@ -15,6 +15,7 @@ git clone "$REPO_URL" /opt/NATracker
 
 if [ $? -eq 0 ]; then
     #add the script to the PATH
+    chmod +x /opt/NATracker/Runners/NATracker
     ln -s /opt/NATracker/Runners/NATracker /usr/local/bin/NATracker
     echo "Installed. Restart your terminal and run 'NATracker'"
 else
