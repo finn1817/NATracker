@@ -15,7 +15,7 @@ if [ -L "/usr/local/bin/NATracker" ]; then
 fi
 
 
-
+sudo pip install inotify_simple
 
 
 git clone "$REPO_URL" /opt/NATracker

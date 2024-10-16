@@ -27,21 +27,34 @@ def loadWatchers():
     with open("/etc/opt/NATracker/watchers.pkl", "rb") as f:
         return pickle.load(f)
     
-def addWatcher(location):
+def checkForWatcher(location):
     #strip path of any trailing slashes/spaces
     location = location.rstrip("/")
     location = location.rstrip(" ")
     #make sure this is a valid dir
     if not os.path.exists(location):
-        print(f"Directory {location} does not exist.")
-        return
+        return None
     #load the watchers
     watchersD = loadWatchers()
     #check if this is already being watched
     for watcher in watchersD.watchers:
         if watcher.location == location:
-            print(f"Directory {location} is already being watched.")
-            return
+            return True
+    return False
+        
+    
+
+    
+def addWatcher(location):
+    exsistingWatcher = checkForWatcher(location)
+    if (exsistingWatcher == True):
+        print(f"Directory {location} is already being watched.")
+        return False
+    if (exsistingWatcher == None):
+        print (f"Directory {location} does not exist.")
+        return False
+    watchersD = loadWatchers()
+
     #add the watcher
     thisWatcher = Watcher()
     thisWatcher.location = location
@@ -61,4 +74,24 @@ def addWatcher(location):
         print("Failed to save watcher. Maybe not root???")
         return
     
-
+def removeWatcher(location):
+    exsistingWatcher = checkForWatcher(location)
+    if (exsistingWatcher == False):
+        print(f"Directory {location} is not being watched.")
+        return False
+    if (exsistingWatcher == None):
+        print (f"Directory {location} does not exist.")
+        return False
+    watchersD = loadWatchers()
+    #remove the watcher
+    for watcher in watchersD.watchers:
+        if watcher.location == location:
+            watchersD.watchers.remove(watcher)
+    #save the watchers
+    try:
+        os.remove(location + "/.NATracker/WatchThisFolder.py")
+        with open("/etc/opt/NATracker/watchers.pkl", "wb") as f:
+            pickle.dump(watchersD, f)
+    except:
+        print("Failed to save watcher. Maybe not root???")
+        return
