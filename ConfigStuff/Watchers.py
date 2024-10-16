@@ -7,6 +7,9 @@ those configuration files go."""
 
 class Watcher:
     location: str
+    
+    def start(self):
+        os.system("python3 " + self.location + "/.NATracker/WatchThisFolder.py")
 
 class allWatchers:
     watchers: list[Watcher]
@@ -58,5 +61,4 @@ def addWatcher(location):
         print("Failed to save watcher. Maybe not root???")
         return
     
-
 addWatcher("/home/mcall/testing") 
