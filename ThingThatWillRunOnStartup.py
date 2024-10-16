@@ -1,5 +1,5 @@
-import ConfigStuff.Watchers as Watchers
 from ConfigStuff.Watchers import allWatchers, Watcher
+import ConfigStuff.Watchers as Watchers
 import threading
 
 def main():
