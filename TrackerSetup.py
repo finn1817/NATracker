@@ -63,6 +63,8 @@ def listTracking():
         print(watcher.location)
     
 
+main()
+
 
 
     
