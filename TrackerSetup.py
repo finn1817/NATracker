@@ -24,25 +24,9 @@ def addTracking(directory):
     if os.path.exists(directory + "/.NAJournal"):
         print(f"Directory {directory} is already being tracked.")
         return
-    #interfacing with incron
-    #root dir will be /opt/NAJournal due to install
-
-    #create a new file in /etc/incron.d/NAJournal
-    commandForFileMod = directory + """ IN_MODIFY notify-send "My name is bash and I rock da house"""
-    commandForFileRemove = directory + " IN_DELETE python3 /opt/NAJournal/Events/delFile.py"
-    commandForFileAdd = directory + " IN_CREATE python3 /opt/NAJournal/Events/addFile.py $@/$#"
+    #creating a watcher that runs on startup.
     
-    #make sure we are root
-    if os.geteuid() != 0:
-        print("This command must be run as root")
-        return
-    #write to a temp file
-    with open(directory + "/.NAJournalIncron", "w") as f:
-        f.write(commandForFileRemove + "\n")
 
-
-    #add the .txt file to the incron daemon https://stackoverflow.com/questions/43878682/adding-job-to-incrontab-with-bash-script
-    os.system("""sudo incrontab -u root """ + directory + """/.NAJournalIncron""")
 
 
     

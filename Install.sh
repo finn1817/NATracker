@@ -14,14 +14,15 @@ if [ -L "/usr/local/bin/NATracker" ]; then
     rm /usr/local/bin/NATracker
 fi
 
-#check for incron
-if [ ! -x "$(command -v incrontab)" ]; then
-    echo "Installing incron"
-    apt update
-    apt install -y incron
-    dnf install -y incron
-    yum install -y incron
-fi
+sudo apt-get install python3-pyasyncore
+sudo pip install pyinotifyd
+sudo pyinotifyd --install
+# start the daemon at boot time
+systemctl enable pyinotifyd.service
+
+# start the daemon immediately
+systemctl start pyinotifyd.service
+
 
 
 git clone "$REPO_URL" /opt/NATracker
