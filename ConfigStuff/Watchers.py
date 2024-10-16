@@ -15,6 +15,8 @@ class allWatchers:
 def loadWatchers():
     #This may happen on first usage.
     if not os.path.exists("/etc/opt/NATracker/watchers.pkl"):
+        if not os.path.exists("/etc/opt/NATracker"):
+            os.mkdir("/etc/opt/NATracker")
         watchersD = allWatchers()
         watchersD.watchers = []
         return watchersD
@@ -53,7 +55,7 @@ def addWatcher(location):
         with open("/etc/opt/NATracker/watchers.pkl", "wb") as f:
             pickle.dump(watchersD, f)
     except:
-        print("Failed to save watcher")
+        print("Failed to save watcher. Maybe not root???")
         return
     
 
