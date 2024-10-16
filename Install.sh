@@ -10,6 +10,10 @@ REPO_URL="https://github.com/mcallbosco/NATracker.git"
 if [ -d "/opt/NATracker" ]; then
     rm -rf /opt/NATracker
 fi
+if [ -L "/usr/local/bin/NATracker" ]; then
+    rm /usr/local/bin/NATracker
+fi
+
 
 git clone "$REPO_URL" /opt/NATracker
 
