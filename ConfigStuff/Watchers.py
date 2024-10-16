@@ -38,7 +38,9 @@ def addWatcher(location):
             print(f"Directory {location} is already being watched.")
             return
     #add the watcher
-    watchersD.watchers.append(Watcher(location))
+    thisWatcher = Watcher()
+    thisWatcher.location = location
+    watchersD.watchers.append(thisWatcher)
     #save the watchers
     try:
         #make /.NATracker in the dir
