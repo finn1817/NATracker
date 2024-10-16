@@ -62,4 +62,3 @@ def addWatcher(location):
         return
     
 
-addWatcher("/home/mcall/testing") 
