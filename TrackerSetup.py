@@ -22,8 +22,6 @@ def main():
     parser.add_argument('--format', action='store_true', help='Reset Everything')
     #parser.add_argument('--update', type=bool, help='Update NATracker (requires root)') skipping this for now
 
-
-
     args = parser.parse_args()
     if args.dir:
         if args.remove:
