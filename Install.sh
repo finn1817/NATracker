@@ -15,11 +15,14 @@ if [ -L "/usr/local/bin/NATracker" ]; then
     rm /usr/local/bin/NATracker
 fi
 
-#install python packages for gtk 3
+#install python packages for gtk use
 sudo apt install python3-gi gir1.2-gtk-3.0
 
 #install inotify package
 sudo pip install inotify_simple
+
+#install git
+sudo apt install git
 
 git clone "$REPO_URL" /opt/NATracker
 
