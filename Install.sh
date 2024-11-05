@@ -24,6 +24,13 @@ sudo pip install inotify_simple
 #install git
 sudo apt install git
 
+#autoload ThingThatWillRunOnStartup.py
+Startup_path = "$(pwd)/ThingThatWillRunOnStartup.py"
+chmod +x "$Startup_path" #making sure the script is executable
+
+#use crontab to schedule the python script to run on startup (@reboot)
+(crontab -l; echo "@reboot python3 Startup_path) | crontab -
+
 git clone "$REPO_URL" /opt/NATracker
 
 if [ $? -eq 0 ]; then
