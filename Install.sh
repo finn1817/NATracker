@@ -7,7 +7,7 @@ fi
 
 REPO_URL="https://github.com/mcallbosco/NATracker.git"
 
-#remove existing NATracker project if it already exists
+# remove existing NATracker project if it already exists
 if [ -d "/opt/NATracker" ]; then
     rm -rf /opt/NATracker
 fi
@@ -15,24 +15,33 @@ if [ -L "/usr/local/bin/NATracker" ]; then
     rm /usr/local/bin/NATracker
 fi
 
-#install python packages for gtk use
+# install python packages for GTK use
 sudo apt install python3-gi gir1.2-gtk-3.0
 
-#install inotify package
+# install inotify package
 sudo pip install inotify_simple
 
-#install git
+# install git
 sudo apt install git
 
-#autoload ThingThatWillRunOnStartup.py
+# define the cron job to run the script on startup
 Startup_path="/opt/NATracker/ThingThatWillRunOnStartup.py"
-#use crontab to schedule the python script to run on startup (@reboot)
-(crontab -l; echo "@reboot python3 \"$Startup_path\"") | crontab -
+cron_job="@reboot python3 \"$Startup_path\""
 
+# check if the cron job already exists
+if (crontab -l | grep -F "$cron_job") >/dev/null 2>&1; then
+    echo "cron job already exists, skipping"
+else
+# schedule script to run on startup
+    (crontab -l; echo "$cron_job") | crontab -
+    echo "cron job added!"
+fi
+
+# clone repo
 git clone "$REPO_URL" /opt/NATracker
 
 if [ $? -eq 0 ]; then
-    #add the script to the PATH
+    # add the script to the path
     chmod +x /opt/NATracker/Runners/NATracker
     ln -s /opt/NATracker/Runners/NATracker /usr/local/bin/NATracker
     echo "Installed. Restart your terminal and run 'NATracker'"
