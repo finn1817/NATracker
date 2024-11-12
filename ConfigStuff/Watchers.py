@@ -84,6 +84,8 @@ def removeWatcher(location):
     for watcher in watchersD.watchers:
         if watcher.location == location:
             watchersD.watchers.remove(watcher)
+            if os.path.exists(location + "/.NATracker/WatchThisFolder.py"):
+                os.remove(location + "/.NATracker/WatchThisFolder.py")
     #save the watchers
     try:
         os.remove(location + "/.NATracker/WatchThisFolder.py")
