@@ -24,6 +24,7 @@ def main():
     parser.add_argument('--remove', action='store_true', help='Remove previous tracking')
     parser.add_argument('--list', action='store_true', help='List all tracked directories')
     parser.add_argument('--format', action='store_true', help='Reset Everything')
+    parser.add_argument('--DontRunWatcher', action='store_true', help='does not run watcher when watching a new folder')
     #parser.add_argument('--update', type=bool, help='Update NATracker (requires root)') skipping this for now
 
     args = parser.parse_args()
@@ -36,7 +37,7 @@ def main():
             removeTracking(args.dir)
         else:
             sudoCheck()
-            addTracking(args.dir)
+            addTracking(args.dir, not args.DontRunWatcher)
     
     if args.list:
         listTracking()
@@ -45,12 +46,12 @@ def main():
 
         
 
-def addTracking(directory):
+def addTracking(directory, RunWatcher):
     #check that the directory exists
     if not os.path.exists(directory):
         print(f"Directory {directory} does not exist.")
         return
-    returnStatus = Watchers.addWatcher(directory)
+    returnStatus = Watchers.addWatcher(directory, RunWatcher)
     if returnStatus == False:
         print("Error adding tracking.")
         exit(1)

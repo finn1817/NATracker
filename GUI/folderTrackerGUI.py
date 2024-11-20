@@ -71,14 +71,14 @@ class FolderTrackerApp(Gtk.Window):
 
 		
 		try:
-			result = subprocess.run(
-				["python3", "/opt/NATracker/TrackerSetup.py", "--dir", directory],
+			subprocess.run(
+				["python3", "/opt/NATracker/TrackerSetup.py", "--dir", directory, "--DontRunWatcher"],
 				capture_output=True,
 				text=True
 			)
 
 			self.show_message(f"Tracking added for: {directory}")
-			print (result.stdout)
+
 			self.show_tracked_folders()
 		except Exception as e:
 			self.show_message(f"Error: {str(e)}")
