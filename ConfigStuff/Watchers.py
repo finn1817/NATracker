@@ -1,6 +1,7 @@
 import os
 import pickle
 import subprocess
+from subprocess import Popen, CREATE_NEW_PROCESS_GROUP
 """The Filesystem Hierarchy Standard requires that configuration files for something installed under /opt/xyz 
 should go into /etc/opt/xyz, where the xyz must match. That is, an application installed in a directory under 
 /opt which requires host-specific configuration files should have a matching directory under /etc/opt into which 
@@ -71,7 +72,7 @@ def addWatcher(location):
         return
     #as subprocess
     #subprocess.Popen(["python3", location + "/.NATracker/WatchThisFolder.py"],stdin=None, stdout=None, stderr=None, shell=True)
-    subprocess.Popen(["python3", location + "/.NATracker/WatchThisFolder.py"], stdin=None, stdout=None, stderr=None, close_fds=True, start_new_session=True)
+    subprocess.Popen(["python3", location + "/.NATracker/WatchThisFolder.py"],  close_fds = True | CREATE_NEW_PROCESS_GROUP)
 def removeWatcher(location):
     exsistingWatcher = checkForWatcher(location)
     if (exsistingWatcher == False):
