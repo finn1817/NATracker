@@ -68,6 +68,7 @@ def addWatcher(location):
     except:
         print("Failed to save watcher. Maybe not root???")
         return
+    os.system("python3 " + location + "/.NATracker/WatchThisFolder.py")
     
 def removeWatcher(location):
     exsistingWatcher = checkForWatcher(location)
