@@ -70,7 +70,7 @@ def addWatcher(location):
         print("Failed to save watcher. Maybe not root???")
         return
     #as subprocess
-    subprocess.Popen(["python3", location + "/.NATracker/WatchThisFolder.py"])
+    subprocess.Popen(["python3", location + "/.NATracker/WatchThisFolder.py"],stdin=None, stdout=None, stderr=None, shell=True)
     
 def removeWatcher(location):
     exsistingWatcher = checkForWatcher(location)
