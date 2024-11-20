@@ -53,6 +53,7 @@ def addTracking(directory):
     returnStatus = Watchers.addWatcher(directory)
     if returnStatus == False:
         print("Error adding tracking.")
+        exit(1)
     else:
         print("Tracking added for " + directory)
 
@@ -60,6 +61,7 @@ def removeTracking(directory):
     returnStatus = Watchers.removeWatcher(directory)
     if returnStatus == False:
         print("Error removing tracking.")
+        exit(1)
     else:
         print("Tracking removed for " + directory)
 

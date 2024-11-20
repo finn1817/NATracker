@@ -72,11 +72,13 @@ class FolderTrackerApp(Gtk.Window):
 		
 		try:
 			result = subprocess.run(
-				["python3", "../TrackerSetup.py", "--dir", directory],
+				["python3", "/opt/NATracker/TrackerSetup.py", "--dir", directory],
 				capture_output=True,
 				text=True
 			)
+
 			self.show_message(f"Tracking added for: {directory}")
+			print (result.stdout)
 			self.show_tracked_folders()
 		except Exception as e:
 			self.show_message(f"Error: {str(e)}")
@@ -87,7 +89,7 @@ class FolderTrackerApp(Gtk.Window):
 	
 		try:
 			result = subprocess.run(
-				["python3", "../TrackerSetup.py", "--dir", directory, "--remove"],
+				["python3", "/opt/NATracker/TrackerSetup.py", "--dir", directory, "--remove"],
 				capture_output=True,
 				text=True
 			)
@@ -101,7 +103,7 @@ class FolderTrackerApp(Gtk.Window):
 		
 		try:
 			result = subprocess.run(
-				["python3", "../TrackerSetup.py", "--list"],
+				["python3", "/opt/NATracker/TrackerSetup.py", "--list"],
 				capture_output=True,
 				text=True
 			)
