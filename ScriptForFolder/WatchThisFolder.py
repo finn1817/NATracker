@@ -41,7 +41,7 @@ def watcher():
     while True:
         time.sleep(1)
         #check if this script still exsists
-        if not os.path.exists(pythonFileLocation + "/WatchThisFolder.py"):
+        if not os.path.exists(os.path.realpath(__file__)):
             exit()
 
         #check for any consecutive file creations and deletions
