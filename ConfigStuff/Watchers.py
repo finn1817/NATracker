@@ -1,5 +1,6 @@
 import os
 import pickle
+import subprocess
 """The Filesystem Hierarchy Standard requires that configuration files for something installed under /opt/xyz 
 should go into /etc/opt/xyz, where the xyz must match. That is, an application installed in a directory under 
 /opt which requires host-specific configuration files should have a matching directory under /etc/opt into which 
@@ -68,7 +69,8 @@ def addWatcher(location):
     except:
         print("Failed to save watcher. Maybe not root???")
         return
-    os.system("python3 " + location + "/.NATracker/WatchThisFolder.py")
+    #as subprocess
+    subprocess.Popen(["python3", location + "/.NATracker/WatchThisFolder.py"])
     
 def removeWatcher(location):
     exsistingWatcher = checkForWatcher(location)
