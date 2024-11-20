@@ -86,7 +86,6 @@ def removeWatcher(location):
                 os.remove(location + "/.NATracker/WatchThisFolder.py")
     #save the watchers
     try:
-        os.remove(location + "/.NATracker/WatchThisFolder.py")
         with open("/etc/opt/NATracker/watchers.pkl", "wb") as f:
             pickle.dump(watchersD, f)
     except:
