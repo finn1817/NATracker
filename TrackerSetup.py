@@ -21,7 +21,7 @@ def sudoCheck():
 def main():
     parser = argparse.ArgumentParser(description='Simple Journal Tracker Setup')
     parser.add_argument('--dir', type=str, help='Directory to track')
-    parser.add_argument('--remove', type=str, help='Remove previous tracking')
+    parser.add_argument('--remove', type=bool, help='Remove previous tracking')
     parser.add_argument('--list', action='store_true', help='List all tracked directories')
     parser.add_argument('--format', action='store_true', help='Reset Everything')
     #parser.add_argument('--update', type=bool, help='Update NATracker (requires root)') skipping this for now
@@ -30,7 +30,7 @@ def main():
     if args.dir:
         if args.remove:
             sudoCheck()
-            removeTracking(args.remove)
+            removeTracking(args.dir)
         else:
             sudoCheck()
             addTracking(args.dir)
