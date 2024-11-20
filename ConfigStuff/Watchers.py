@@ -29,9 +29,7 @@ def loadWatchers():
     
 def checkForWatcher(location):
     #strip path of any trailing slashes/spaces
-    location = location.rstrip("/")
-    location = location.rstrip(" ")
-    #make sure this is a valid dir
+    
     if not os.path.exists(location):
         return None
     #load the watchers
