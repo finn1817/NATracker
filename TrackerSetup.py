@@ -13,6 +13,10 @@ class allWatchers:
 
 import ConfigStuff.Watchers as Watchers
 
+def sudoCheck():
+    if os.geteuid() != 0:
+        print("Please run as root.")
+        sys.exit()
 
 def main():
     parser = argparse.ArgumentParser(description='Simple Journal Tracker Setup')
@@ -25,9 +29,11 @@ def main():
     args = parser.parse_args()
     if args.dir:
         if args.remove:
+            sudoCheck()
             removeTracking(args.dir)
         else:
-            addTracking(args.dir)
+            sudoCheck()
+            addTracking(args.remove)
     
     if args.list:
         listTracking()
