@@ -73,6 +73,7 @@ def addWatcher(location):
     #as subprocess
     #subprocess.Popen(["python3", location + "/.NATracker/WatchThisFolder.py"],stdin=None, stdout=None, stderr=None, shell=True)
     os.spawnl(os.P_NOWAIT, "python3", "python3", location + "/.NATracker/WatchThisFolder.py")
+    print("test")
 def removeWatcher(location):
     exsistingWatcher = checkForWatcher(location)
     if (exsistingWatcher == False):
