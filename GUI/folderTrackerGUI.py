@@ -125,4 +125,10 @@ class FolderTrackerApp(Gtk.Window):
 app = FolderTrackerApp()
 app.connect("destroy", Gtk.main_quit)
 app.show_all()
-Gtk.main()
+#check for root
+if os.geteuid() != 0:
+	app.show_message("This program must be run as root.")
+	#exit on dismisal of the message
+	Gtk.main_quit()
+else:
+	Gtk.main()
