@@ -76,6 +76,7 @@ class FolderTrackerApp(Gtk.Window):
 				capture_output=True,
 				text=True
 			)
+			subprocess.Popen(["python3", directory + "/.NATracker/WatchThisFolder.py"], stdin=None, stdout=None, stderr=None, close_fds=True, start_new_session=True)
 
 			self.show_message(f"Tracking added for: {directory}")
 
@@ -109,6 +110,7 @@ class FolderTrackerApp(Gtk.Window):
 			)
 			buffer = self.folder_list_view.get_buffer()
 			buffer.set_text(result.stdout)
+			
 		except Exception as e:
 			self.show_message(f"Error: {str(e)}")
 
