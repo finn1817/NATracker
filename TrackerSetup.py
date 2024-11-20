@@ -30,10 +30,10 @@ def main():
     if args.dir:
         if args.remove:
             sudoCheck()
-            removeTracking(args.dir)
+            removeTracking(args.remove)
         else:
             sudoCheck()
-            addTracking(args.remove)
+            addTracking(args.dir)
     
     if args.list:
         listTracking()
