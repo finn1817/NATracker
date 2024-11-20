@@ -37,7 +37,11 @@ def main():
             removeTracking(args.dir)
         else:
             sudoCheck()
-            addTracking(args.dir, not args.DontRunWatcher)
+            if args.DontRunWatcher: 
+                runWatcher = False
+            else:
+                runWatcher = True
+            addTracking(args.dir, runWatcher)
     
     if args.list:
         listTracking()
