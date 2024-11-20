@@ -71,10 +71,7 @@ def addWatcher(location):
         print("Failed to save watcher. Maybe not root???")
         return
     #as subprocess
-    #subprocess.Popen(["python3", location + "/.NATracker/WatchThisFolder.py"],stdin=None, stdout=None, stderr=None, shell=True)
-    #print(os.spawnl(os.P_NOWAIT, "python3", location + "/.NATracker/WatchThisFolder.py"))
     subprocess.Popen(["python3", location + "/.NATracker/WatchThisFolder.py"], stdin=None, stdout=None, stderr=None, close_fds=True, start_new_session=True)
-    print("test")
 def removeWatcher(location):
     exsistingWatcher = checkForWatcher(location)
     if (exsistingWatcher == False):
