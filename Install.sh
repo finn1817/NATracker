@@ -52,7 +52,7 @@ if [ $? -eq 0 ]; then
 	Type=Application
 	Name=Folder Tracker GUI
 	Exec=python3 /opt/NATracker/GUI/folderTrackerGUI.py
-	Icon=/opt/NATracker/GUI/icon.png
+	Icon=/opt/NATracker/GUI/icon2.png
 	Terminal=false
 	Categories=Utility;Application;" > "$ICON"
 
