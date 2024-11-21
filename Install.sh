@@ -15,6 +15,9 @@ if [ -L "/usr/local/bin/NATracker" ]; then
     rm /usr/local/bin/NATracker
 fi
 
+# install python 3
+sudo apt install python3
+
 # install python packages for GTK use
 sudo apt install python3-gi gir1.2-gtk-3.0
 
@@ -40,6 +43,10 @@ fi
 # clone repo
 git clone "$REPO_URL" /opt/NATracker
 if [ $? -eq 0 ]; then
+
+	#give executable permissions for folderTrackerGUI.py
+	chmod +x /opt/NATracker/GUI/folderTrackerGUI.py
+
     # add the script to the path
     chmod +x /opt/NATracker/Runners/NATracker
     ln -s /opt/NATracker/Runners/NATracker /usr/local/bin/NATracker
@@ -50,7 +57,7 @@ if [ $? -eq 0 ]; then
     	echo "[Desktop Entry]
 	Version=0.0
 	Type=Application
-	Name=Folder Tracker GUI
+	Name=NATracker
 	Exec=python3 /opt/NATracker/GUI/folderTrackerGUI.py
 	Icon=/opt/NATracker/GUI/icon2.png
 	Terminal=false
