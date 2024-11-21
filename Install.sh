@@ -53,6 +53,8 @@ if [ $? -eq 0 ]; then
     chmod +x /opt/NATracker/Runners/NATracker
     chmod +x /opt/NATracker/Runners/FolderTrackerGUI
     ln -s /opt/NATracker/Runners/NATracker /usr/local/bin/NATracker
+    ln -s /opt/NATracker/Runners/FolderTrackerGUI /usr/local/bin/FolderTrackerGUI
+
     echo "Installed. Restart your terminal and run 'NATracker'"
 
 	#create the desktop icon
