@@ -23,6 +23,8 @@ sudo apt install python3-gi gir1.2-gtk-3.0 -y
 sudo apt install pip -y
 # install inotify package
 sudo pip install inotify_simple --break-system-packages
+sudo pip install dill --break-system-packages
+
 
 # install git
 sudo apt install git
