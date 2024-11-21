@@ -63,7 +63,7 @@ if [ $? -eq 0 ]; then
 	Version=0.0
 	Type=Application
 	Name=NATracker
-	Exec=/opt/NATracker/Runners/FolderTrackerGUI -desktop
+	Exec=bash FolderTrackerGUI -desktop
 	Icon=/opt/NATracker/GUI/icon2.png
 	Terminal=false
 	Categories=Utility;Application;" > "$ICON"
