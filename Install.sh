@@ -60,7 +60,7 @@ if [ $? -eq 0 ]; then
 	Version=0.0
 	Type=Application
 	Name=NATracker
-	Exec=python3 /opt/NATracker/GUI/folderTrackerGUI.py
+	Exec=pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY python3 /opt/NATracker/GUI/folderTrackerGUI.py
 	Icon=/opt/NATracker/GUI/icon2.png
 	Terminal=false
 	Categories=Utility;Application;" > "$ICON"
