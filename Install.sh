@@ -46,7 +46,7 @@ if [ $? -eq 0 ]; then
     echo "Installed. Restart your terminal and run 'NATracker'"
 
 	#create the desktop icon
-	ICON="/usr/share/applications/	folderTrackerGUI.desktop"
+	ICON="/usr/share/applications/folderTrackerGUI.desktop"
     	echo "[Desktop Entry]
 	Version=0.0
 	Type=Application
