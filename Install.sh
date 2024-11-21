@@ -39,12 +39,29 @@ fi
 
 # clone repo
 git clone "$REPO_URL" /opt/NATracker
-
 if [ $? -eq 0 ]; then
     # add the script to the path
     chmod +x /opt/NATracker/Runners/NATracker
     ln -s /opt/NATracker/Runners/NATracker /usr/local/bin/NATracker
     echo "Installed. Restart your terminal and run 'NATracker'"
+
+	#create the desktop icon
+	ICON="/usr/share/applications/	folderTrackerGUI.desktop"
+    	echo "[Desktop Entry]
+	Version=0.0
+	Type=Application
+	Name=Folder Tracker GUI
+	Exec=python3 /opt/NATracker/GUI/folderTrackerGUI.py
+	Icon=/opt/NATracker/GUI/icon.png
+	Terminal=false
+	Categories=Utility;Application;" > "$ICON"
+
+	#give the shortcut execute permissions
+	chmod +x "$ICON"
+	
+	#output that shortcut was created
+	echo "Desktop shortcut created at $ICON"
+
 else
     echo "Failed to install"
     exit 1
