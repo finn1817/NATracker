@@ -1,10 +1,11 @@
-import gi
-import subprocess
-import os
+import gi #gtk Python wrapper
+import subprocess #used to interact with TrackerSetup.py
+import os #os module
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
+#define the class of the gtk app
 class FolderTrackerApp(Gtk.Window):
 	def __init__(self):
 		super().__init__(title="Folder Tracker")
@@ -15,17 +16,18 @@ class FolderTrackerApp(Gtk.Window):
 		vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 		self.add(vbox)
 
-		# Create 'Add Directory' button
+		#create the add directory button
 		self.add_button = Gtk.Button(label="Add Directory")
 		self.add_button.connect("clicked", self.on_add_directory_clicked)
 		vbox.pack_start(self.add_button, True, True, 0)
 
-		# Create 'Remove Directory' button
+		#create the remove directory button
 		self.remove_button = Gtk.Button(label="Remove Directory")
 		self.remove_button.connect("clicked", self.on_remove_directory_clicked)
 		vbox.pack_start(self.remove_button, True, True, 0)
 
-		# Create TextView to show tracked folders
+		#create the textbox below the buttons to show the tracked folders.
+		#the application will automatically expand to fit the folders. 
 		self.folder_list_label = Gtk.Label(label="Tracked Folders:")
 		vbox.pack_start(self.folder_list_label, False, False, 0)
 
@@ -34,11 +36,12 @@ class FolderTrackerApp(Gtk.Window):
 		self.folder_list_view.set_wrap_mode(Gtk.WrapMode.WORD)
 		vbox.pack_start(self.folder_list_view, True, True, 0)
 
-		# Show tracked folders on startup
+		#show tracked folders on startup
 		self.show_tracked_folders()
 
+	#function called if the add directory button is clicked
 	def on_add_directory_clicked(self, widget):
-		# Open file chooser to select directory to add
+		#open file chooser to select directory to add
 		dialog = Gtk.FileChooserDialog(title="Select Directory to Track", parent=self, action=Gtk.FileChooserAction.SELECT_FOLDER)
 		dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN, Gtk.ResponseType.OK)
 
@@ -48,8 +51,10 @@ class FolderTrackerApp(Gtk.Window):
 			self.add_tracking(directory)
 		dialog.destroy()
 
+	#function called if the remove directory button is clicked
 	def on_remove_directory_clicked(self, widget):
-		# Open file chooser to select directory to remove
+
+		#open file chooser to select directory to remove
 		dialog = Gtk.FileChooserDialog(
 			title="Select Directory to Stop Tracking", parent=self, action=Gtk.FileChooserAction.SELECT_FOLDER)
 		dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN, Gtk.ResponseType.OK)
@@ -60,24 +65,32 @@ class FolderTrackerApp(Gtk.Window):
 			self.remove_tracking(directory)
 		dialog.destroy()
 
+	#function called to add a directory to be tracked to TrackerSetup.py
+	#this function is called in on_add_directory_clicked()
 	def add_tracking(self, directory):
-		# Call TrackerSetup.py to add directory for tracking
+
+		
 		try:
-			result = subprocess.run(
-				["python3", "TrackerSetup.py", "--dir", directory],
+			subprocess.run(
+				["python3", "/opt/NATracker/TrackerSetup.py", "--dir", directory, "--DontRunWatcher"],
 				capture_output=True,
 				text=True
 			)
+			subprocess.Popen(["python3", directory + "/.NATracker/WatchThisFolder.py"], stdin=None, stdout=None, stderr=None, close_fds=True, start_new_session=True)
+
 			self.show_message(f"Tracking added for: {directory}")
+
 			self.show_tracked_folders()
 		except Exception as e:
 			self.show_message(f"Error: {str(e)}")
 
+	#function called to add a directory to be tracked to TrackerSetup.py
+	#this function is called in on_remove_directory_clicked()
 	def remove_tracking(self, directory):
-		# Call TrackerSetup.py to remove directory from tracking
+	
 		try:
 			result = subprocess.run(
-				["python3", "TrackerSetup.py", "--dir", directory, "--remove"],
+				["python3", "/opt/NATracker/TrackerSetup.py", "--dir", directory, "--remove"],
 				capture_output=True,
 				text=True
 			)
@@ -86,19 +99,22 @@ class FolderTrackerApp(Gtk.Window):
 		except Exception as e:
 			self.show_message(f"Error: {str(e)}")
 
+	#call TrackerSetup.py to list tracked directories and display in TextView
 	def show_tracked_folders(self):
-		# Call TrackerSetup.py to list tracked directories and display in TextView
+		
 		try:
 			result = subprocess.run(
-				["python3", "TrackerSetup.py", "--list"],
+				["python3", "/opt/NATracker/TrackerSetup.py", "--list"],
 				capture_output=True,
 				text=True
 			)
 			buffer = self.folder_list_view.get_buffer()
 			buffer.set_text(result.stdout)
+			
 		except Exception as e:
 			self.show_message(f"Error: {str(e)}")
 
+	#brings up a message window
 	def show_message(self, message):
 		dialog = Gtk.MessageDialog(
 			transient_for=self,
@@ -110,9 +126,13 @@ class FolderTrackerApp(Gtk.Window):
 		dialog.run()
 		dialog.destroy()
 
-# Run the application
 app = FolderTrackerApp()
 app.connect("destroy", Gtk.main_quit)
 app.show_all()
-Gtk.main()
-
+#check for root
+if os.geteuid() != 0:
+	app.show_message("This program must be run as root.")
+	#exit on dismisal of the message
+	Gtk.main_quit()
+else:
+	Gtk.main()
