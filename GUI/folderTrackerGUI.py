@@ -2,8 +2,12 @@ import gi
 import subprocess
 import os
 
+#screen settings
+border_width = 12
+
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk #for the window
+from gi.repository import Gdk #for the screen
 
 #class for the gtk window
 class FolderTrackerApp(Gtk.Window):
@@ -11,8 +15,14 @@ class FolderTrackerApp(Gtk.Window):
     #function called when the program is created
     def __init__(self):
         super().__init__(title="Folder Tracker")
-        self.set_border_width(10)
-        self.set_default_size(400, 300)
+        self.set_border_width(border_width)
+        #self.set_default_size(400, 300)
+        
+        #setting the window startup size and position.
+        window_width = Gdk.Display.get_default().get_primary_monitor().get_geometry().width // 2
+        window_height = Gdk.Display.get_default().get_primary_monitor().get_geometry().height // 2
+        self.set_default_size(window_width, window_height) #making the width and height of the window half the width and height of the screen.
+        self.set_position(Gtk.WindowPosition.CENTER) #centering the window on the screen
 
         #a set to store the tracked folders that we display
         self.tracked_folders = set()
@@ -61,7 +71,12 @@ class FolderTrackerApp(Gtk.Window):
         response = dialog.run()
         if response == Gtk.ResponseType.OK:
             directory = dialog.get_filename()
-            self.add_tracking(directory)
+            if not self.isDuplicate(directory): #checking the list to see if the folder just added is a duplicate or not
+                self.add_tracking(directory)
+                
+            #if the folder already exists, then display an error message.
+            else:
+                self.show_errorMessage("Duplicate Folder Added", "You have tried adding a folder that already exists, so it will not be processed.")
         dialog.destroy()
 
     #function called when "remove directory" button is clicked
@@ -129,9 +144,9 @@ class FolderTrackerApp(Gtk.Window):
     #function for when a folder is selected from the listbox
     def on_row_selected(self, list_box, row):
     
-        #update the "remove directory" button based on selection
+        #update the "remove directory" button if atleast 1 row is selected
         selected_rows = self.folder_list_box.get_selected_rows()
-        self.remove_button.set_sensitive(bool(selected_rows))
+        self.remove_button.set_sensitive(bool(selected_rows)) #change remove button from being greyed out.
 
     #function that toggles the selection state of a folder in the listbox
     #which makes iot possible to click to deselect a folder
@@ -140,6 +155,24 @@ class FolderTrackerApp(Gtk.Window):
             self.folder_list_box.unselect_row(row)
         else:
             self.folder_list_box.select_row(row)
+            
+    #function to check if the folder already exists in the set or not
+    def isDuplicate(self, directory):
+        return directory in self.tracked_folders
+        
+    #function to display an error message
+    def show_errorMessage(self, title, message):
+        dialog = Gtk.MessageDialog(
+            transient_for=self,
+            flags=0,
+            message_type=Gtk.MessageType.ERROR,
+            buttons=Gtk.ButtonsType.OK,
+            text=title,
+        )
+        dialog.format_secondary_text(message)
+        dialog.connect("response", lambda d, r: d.destroy())
+        dialog.run()
+        #dialog.destroy
 
 
 if __name__ == "__main__":
