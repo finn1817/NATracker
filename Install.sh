@@ -46,8 +46,8 @@ fi
 git clone "$REPO_URL" /opt/NATracker
 if [ $? -eq 0 ]; then
 
-	#give executable permissions for folderTrackerGUI.py
-	chmod +x /opt/NATracker/GUI/folderTrackerGUI.py
+	#give executable permissions for folderTrackerGUI.py which is now renamed to main.py
+	chmod +x /opt/NATracker/GUI/main.py
 
     # add the script to the path
     chmod +x /opt/NATracker/Runners/NATracker
