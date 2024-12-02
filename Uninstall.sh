@@ -1,8 +1,8 @@
 #!/bin/bash
 # run with root privileges
 if [ "$EUID" -ne 0 ]; then
-	echo "please run as root"
-	exit 1
+    echo "please run as root"
+    exit 1
 fi
 
 # defining main paths used for uninstall
@@ -15,7 +15,7 @@ PICKLE_FILE="$WATCHERS_DIR/watchers.pkl" #tracked folder
 
 # remove tracked folders
 if [ -f "$PICKLE_FILE" ]; then
-	echo "Removing tracked folders..."
+    echo "Removing tracked folders..."
 
 python3 - <<EOF
 
