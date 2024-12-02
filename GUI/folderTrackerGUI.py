@@ -14,7 +14,7 @@ class FolderTrackerApp(Gtk.Window):
 
     #function called when the program is created
     def __init__(self):
-        super().__init__(title="Folder Tracker")
+        super().__init__(title="NATracker")
         self.set_border_width(border_width)
         #self.set_default_size(400, 300)
         
@@ -25,12 +25,68 @@ class FolderTrackerApp(Gtk.Window):
         self.set_position(Gtk.WindowPosition.CENTER) #centering the window on the screen
 
         #a set to store the tracked folders that we display
-        self.tracked_folders = set()
+        #self.tracked_folders = set()
 
         #create a vertical box container in which all the elements
         #of the window sit in like the buttons. 
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        self.add(vbox)
+        #vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        #self.add(vbox)
+
+        #"add directory" button
+        #self.add_button = Gtk.Button(label="Add Directory")
+        #self.add_button.connect("clicked", self.on_add_directory_clicked)
+        #vbox.pack_start(self.add_button, False, False, 0)
+
+        #"remove directory" button (initially disabled)
+        #self.remove_button = Gtk.Button(label="Remove Directory")
+        #self.remove_button.set_sensitive(False)  # Initially disabled
+        #self.remove_button.connect("clicked", self.on_remove_directory_clicked)
+        
+        #vbox.pack_start(self.remove_button, False, False, 0)
+
+        #creating a listbox for the tracked folders set. 
+        #allows tracking of folders.
+        #self.folder_list_box = Gtk.ListBox()
+        #self.folder_list_box.set_selection_mode(Gtk.SelectionMode.MULTIPLE)
+        #self.folder_list_box.connect("row-selected", self.on_row_selected)
+
+        #adding the listbox to a scrollable window so we can
+        #scroll between the folder items in the listbox.
+        #scrollable_window = Gtk.ScrolledWindow()
+        #scrollable_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        #scrollable_window.add(self.folder_list_box)
+        #vbox.pack_start(scrollable_window, True, True, 0)
+
+        #show the set of tracked folders
+        #self.show_tracked_folders()
+        
+        
+        
+        
+        #creating tab controls like from C# in Gtk
+        #in GTK they are called notebooks
+        notebook = Gtk.Notebook()
+        self.add(notebook)
+        
+        #folder tracker tab
+        tab_folderTracker = self.create_tab_folderTracker()
+        notebook.append_page(tab_folderTracker, Gtk.Label(label="Folder Tracking"))
+        
+        #second tab not yet implemented
+        tab_replay = self.create_tab_replay()
+        notebook.append_page(tab_replay, Gtk.Label(label="Replay"))
+        
+    #function to create the folder tracking tab
+    def create_tab_folderTracker(self):
+    
+        #create a vertical box container in which all the elements
+        #of the window sit in like the buttons. 
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=border_width)
+        
+        #a set to store the tracked folders that we display
+        self.tracked_folders = set()
+
+        #self.add(vbox)
 
         #"add directory" button
         self.add_button = Gtk.Button(label="Add Directory")
@@ -41,6 +97,7 @@ class FolderTrackerApp(Gtk.Window):
         self.remove_button = Gtk.Button(label="Remove Directory")
         self.remove_button.set_sensitive(False)  # Initially disabled
         self.remove_button.connect("clicked", self.on_remove_directory_clicked)
+        
         vbox.pack_start(self.remove_button, False, False, 0)
 
         #creating a listbox for the tracked folders set. 
@@ -58,6 +115,17 @@ class FolderTrackerApp(Gtk.Window):
 
         #show the set of tracked folders
         self.show_tracked_folders()
+        
+        return vbox
+        
+    #creating the replay tab
+    def create_tab_replay(self):
+    
+        #temporary code i copied from online
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=border_width)
+        label = Gtk.Label(label="Placeholder for the replay function.")
+        vbox.pack_start(label, True, True, 0)
+        return vbox
 
     #function called when "add directory" button is clicked
     def on_add_directory_clicked(self, widget):
