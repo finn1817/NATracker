@@ -25,13 +25,13 @@ import os
 pickle_file = "$PICKLE_FILE" # path to pickle file w tracked data
 if os.path.exists(pickle_file): # to make sure it exists alr
     with open(pickle_file, "rb") as f: # open and load
-    data = pickle.load(f)
-    for watcher in data.watchers:
-        folder = watcher.location # get tracked folders location
-        tracker_path = os.path.join(folder, ".NATracker")
-        if os.path.exists(tracker_path):
-            print(f"removing tracked folder: {tracker_path}") # shows removal
-            os.system(f"rm -rf \"{tracker_path}\"") # removes the folder
+        data = pickle.load(f)
+        for watcher in data.watchers:
+            folder = watcher.location # get tracked folders location
+            tracker_path = os.path.join(folder, ".NATracker")
+            if os.path.exists(tracker_path):
+                print(f"removing tracked folder: {tracker_path}") # shows removal
+                os.system(f"rm -rf \"{tracker_path}\"") # removes the folder
 EOF
     echo "tracked folders removed."
 else
