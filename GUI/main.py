@@ -36,7 +36,15 @@ class program_window(Gtk.Window):
             )
         else:
             self.set_default_size(PROGRAM_MIN_WIDTH, PROGRAM_MIN_HEIGHT)
-            
+        hb = Gtk.HeaderBar()
+        hb.set_show_close_button(True)
+        hb.props.title = "HeaderBar example"
+        self.set_titlebar(hb)
+        button = Gtk.Button()
+        icon = Gio.ThemedIcon(name="document-properties")
+        image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
+        button.add(image)
+        hb.pack_end(button)
         self.set_position(Gtk.WindowPosition.CENTER)
 
         notebook = Gtk.Notebook()
