@@ -1,6 +1,6 @@
 import gi #library that provides python to gnome translation
 gi.require_version("Gtk", "3.0")  #specify the version before importing Gtk or Gdk
-from gi.repository import Gtk #for the window
+from gi.repository import Gtk, Gio #for the window
 from gi.repository import Gdk #for the screen / display
 import os #os library
 
