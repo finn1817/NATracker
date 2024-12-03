@@ -52,6 +52,7 @@ if [ $? -eq 0 ]; then
     # add the script to the path
     chmod +x /opt/NATracker/Runners/NATracker
     chmod +x /opt/NATracker/Runners/FolderTrackerGUI
+    chmod +x /opt/NATracker/Uninstall.sh
     ln -s /opt/NATracker/Runners/NATracker /usr/local/bin/NATracker
     ln -s /opt/NATracker/Runners/FolderTrackerGUI /usr/local/bin/FolderTrackerGUI
 
