@@ -27,7 +27,7 @@ sudo pip install dill --break-system-packages
 
 
 # install git
-sudo apt install git
+sudo apt install git -y
 
 # define the cron job to run the script on startup
 Startup_path="/opt/NATracker/ThingThatWillRunOnStartup.py"

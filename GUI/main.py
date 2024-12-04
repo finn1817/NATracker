@@ -47,7 +47,7 @@ class program_window(Gtk.Window):
         hb.pack_end(button)
         self.set_position(Gtk.WindowPosition.CENTER)
 
-        notebook = Gtk.Notebook()
+        notebook = Gtk.Notebook(self)
         self.add(notebook)
 
         #creating the tabs---------------------------------------------------------------------
