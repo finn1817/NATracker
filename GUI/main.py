@@ -47,7 +47,7 @@ class program_window(Gtk.Window):
         hb.pack_end(button)
         self.set_position(Gtk.WindowPosition.CENTER)
 
-        notebook = Gtk.Notebook(self)
+        notebook = Gtk.Notebook()
         self.add(notebook)
 
         #creating the tabs---------------------------------------------------------------------
@@ -59,7 +59,7 @@ class program_window(Gtk.Window):
         notebook.append_page(tab_folderTracker, Gtk.Label(label=TAB1_NAME))
 
         #"Replay" tab
-        tab_replay = replay.create_tab()
+        tab_replay = replay.create_tab(self)
         notebook.append_page(tab_replay, Gtk.Label(label=TAB2_NAME))
 
 #----------------------------------------------------------------------------------------------
