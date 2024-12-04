@@ -1,5 +1,6 @@
 import subprocess
 from gi.repository import Gtk
+import os
 
 #----------------------------------------------------------------------------------------------
 
@@ -81,14 +82,7 @@ def add_tracking(app, directory):
         capture_output=True,
         text=True,
     )
-    subprocess.Popen(
-        ["python3", directory + "/.NATracker/WatchThisFolder.py"],
-        stdin=None,
-        stdout=None,
-        stderr=None,
-        close_fds=True,
-        start_new_session=True,
-    )
+    os.system("python3 " + directory + "/.NATracker/WatchThisFolder.py &")
     show_tracked_folders(app)
 
 def remove_tracking(app, directory):
