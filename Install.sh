@@ -29,6 +29,9 @@ sudo pip install dill --break-system-packages
 # install git
 sudo apt install git -y
 
+# install dbus to fix issue with GUI
+sudo apt install dbus
+
 # define the cron job to run the script on startup
 Startup_path="/opt/NATracker/ThingThatWillRunOnStartup.py"
 cron_job="@reboot python3 \"$Startup_path\""
