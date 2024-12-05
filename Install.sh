@@ -30,7 +30,7 @@ sudo pip install dill --break-system-packages
 sudo apt install git -y
 
 # install dbus to fix issue with GUI
-sudo apt install dbus
+sudo apt install dbus-x11
 
 # define the cron job to run the script on startup
 Startup_path="/opt/NATracker/ThingThatWillRunOnStartup.py"
