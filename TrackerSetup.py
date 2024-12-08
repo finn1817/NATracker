@@ -1,18 +1,22 @@
-import argparse
+import argparse # for parsing command-line arguments
 import os
 import sys
 
+# class representing a single folder watcher
 class Watcher:
     location: str
     
     def start(self):
         os.system("python3 " + self.location + "/.NATracker/WatchThisFolder.py")
 
+# class to manage multiple watchers
 class allWatchers:
     watchers: list[Watcher]
 
+# importing ConfigStuff module for watcher management
 import ConfigStuff.Watchers as Watchers
 
+# ensures the script is ran with root privileges. Exits it not. 
 def sudoCheck():
     if os.geteuid() != 0:
         print("Please run as root.")
@@ -28,9 +32,13 @@ def main():
     #parser.add_argument('--update', type=bool, help='Update NATracker (requires root)') skipping this for now
 
     args = parser.parse_args()
+
+    # print help if no arguments are provided
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)
         sys.exit(1)
+
+    # handles the dir argument (to add or remove tracking)
     if args.dir:
         if args.remove:
             sudoCheck()
@@ -42,14 +50,12 @@ def main():
             else:
                 runWatcher = True
             addTracking(args.dir, runWatcher)
-    
+
+    # handle the list argument
     if args.list:
         listTracking()
     
-
-
-        
-
+# called by GUI to add tracking to a folder
 def addTracking(directory, RunWatcher):
     #check that the directory exists
     if not os.path.exists(directory):
@@ -62,6 +68,7 @@ def addTracking(directory, RunWatcher):
     else:
         print("Tracking added for " + directory)
 
+# called by GUI to remove tracking from a folder
 def removeTracking(directory):
     returnStatus = Watchers.removeWatcher(directory)
     if returnStatus == False:
@@ -70,19 +77,10 @@ def removeTracking(directory):
     else:
         print("Tracking removed for " + directory)
 
-
+# called by GUI to get the list of tracked folders to display
 def listTracking():
     watchersD = Watchers.loadWatchers()
     for watcher in watchersD.watchers:
         print(watcher.location)
-    
 
 main()
-
-
-
-    
-    
-    
-
-
