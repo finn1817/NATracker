@@ -33,6 +33,8 @@ NATracker is a file system journaling tool developed for CSIT 435: Introduction 
 ### Installation
 All necessary packages will be installed if not already installed using the install.sh script.
 
-Run the following command to install:
+This program is only intended to work on Ubuntu, but we have had success on other Linux distros like Debian and Mint.
+
+Download Install.sh from the repository, locate the file in the terminal, and run the following command to install:
 ```bash
 sudo bash Install.sh
