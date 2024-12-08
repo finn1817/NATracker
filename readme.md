@@ -2,6 +2,11 @@
 
 ---
 
+### Presentation (Google Slides Link)
+https://docs.google.com/presentation/d/17CdpKIwpxkrgSSI4P3ObL77Mcm-ZGDkNl4URb26uE9w/edit?usp=sharing
+
+___
+
 ### Project Overview
 NATracker is a file system journaling tool developed for **CSIT 435: Introduction to Operating Systems** at **SUNY Fredonia**. This program runs in the background and monitors changes in directories and files, providing functionality for setup, management, and replaying tracked data. It features a GUI for user interaction, as well as streamlined installation and uninstallation scripts.
 
