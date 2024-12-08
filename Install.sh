@@ -1,13 +1,16 @@
 #!/bin/bash
+#Install.sh
 
+#make sure the script is being ran as root
 if [ "$EUID" -ne 0 ]; then
     echo "Please run as root"
     exit 1
 fi
 
+#NATracker repository link
 REPO_URL="https://github.com/mcallbosco/NATracker.git"
 
-# remove existing NATracker project if it already exists
+#remove existing NATracker project if it already exists
 if [ -d "/opt/NATracker" ]; then
     rm -rf /opt/NATracker
 fi
@@ -15,29 +18,26 @@ if [ -L "/usr/local/bin/NATracker" ]; then
     rm /usr/local/bin/NATracker
 fi
 
-# install python 3
+#install python 3
 sudo apt install python3 -y
 
-# install python packages for GTK use
+#install python packages for GTK use
 sudo apt install python3-gi gir1.2-gtk-3.0 -y
 sudo apt install pip -y
 # install inotify package
 sudo pip install inotify_simple --break-system-packages
 sudo pip install dill --break-system-packages
-
-
-# install git
-sudo apt install git -y
-
-# install dbus to fix issue with GUI
-sudo apt install dbus
+sudo apt install dbus #install dbus to fix issue with GUI
 sudo apt install dbus-x11
 
-# define the cron job to run the script on startup
+#install git
+sudo apt install git -y
+
+#define the cron job to run the script on startup
 Startup_path="/opt/NATracker/ThingThatWillRunOnStartup.py"
 cron_job="@reboot python3 \"$Startup_path\""
 
-# check if the cron job already exists
+#check if the cron job already exists
 if (crontab -l | grep -F "$cron_job") >/dev/null 2>&1; then
     echo "cron job already exists, skipping"
 else
@@ -46,7 +46,7 @@ else
     echo "cron job added!"
 fi
 
-# clone repo
+#clone repo in to opt folder on the computer
 git clone "$REPO_URL" /opt/NATracker
 if [ $? -eq 0 ]; then
 
