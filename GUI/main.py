@@ -152,7 +152,7 @@ class program_window(Gtk.Window):
         # this section of the code was not written by Zach
         hb = Gtk.HeaderBar()
         hb.set_show_close_button(True)
-        hb.props.title = "HeaderBar example"
+        hb.props.title = "NATracker"
         self.set_titlebar(hb)
         button = Gtk.Button()
         icon = Gio.ThemedIcon(name="document-properties")
