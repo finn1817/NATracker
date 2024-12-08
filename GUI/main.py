@@ -10,6 +10,8 @@ import subprocess  # to run uninstaller
 import tracker
 import replay
 
+from gi.repository import GLib
+
 #----------------------------------------------------------------------------------------------
 
 #gui settings
@@ -35,11 +37,6 @@ class SettingsWindow(Gtk.Window):
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.add(vbox)
 
-        # remove all tracking button
-        remove_tracking_button = Gtk.Button(label="remove all tracking")
-        remove_tracking_button.connect("clicked", self.remove_all_tracking, parent_window)
-        vbox.pack_start(remove_tracking_button, False, False, 0)
-
         # run Uninstall.sh button
         uninstaller_button = Gtk.Button(label="run uninstaller")
         uninstaller_button.connect("clicked", self.run_uninstaller)
@@ -52,26 +49,69 @@ class SettingsWindow(Gtk.Window):
         if os.path.exists(script_path):
             try:
                 # to make sure uninstall is executable as this was my main issue
-                os.chmod(script_path, 0o755)  # give it execute permissions
+                os.chmod(script_path, 0o755)  # gives it execute permissions
             
                 # to run the uninstaller script
                 subprocess.run([script_path], check=True)
-                print("uninstall.sh has been executed successfully.")
+                
+                 # dialog (to display confirmation message)
+                dialog = Gtk.MessageDialog(
+                    transient_for=self,  # the parent window
+                    flags=0,
+                    message_type=Gtk.MessageType.INFO,
+                    buttons=Gtk.ButtonsType.NONE,
+                    text="uninstall successful"
+                )
+                dialog.set_position(Gtk.WindowPosition.CENTER)
+                dialog.show_all()
+            
+                # close everything function
+                def close_all():
+                    dialog.destroy()
+                    Gtk.main_quit()
+                    return False  # important for GLib timeout
+            
+                # force app to close 2 seconds after uninstall buttons clicked
+                GLib.timeout_add_seconds(2, close_all)
+            
+                print("uninstall successful.")
+        
             except subprocess.CalledProcessError as e:
-                print(f"error during uninstall: {e}")
+                # error message if uninstall fails
+                error_dialog = Gtk.MessageDialog(
+                    transient_for=self,
+                    flags=0,
+                    message_type=Gtk.MessageType.ERROR,
+                    buttons=Gtk.ButtonsType.OK,
+                    text=f"uninstall Failed: {e}"
+                )
+                error_dialog.run()
+                error_dialog.destroy()
+    
             except Exception as e:
-                print(f"error: {e}")
+                # other error message
+                error_dialog = Gtk.MessageDialog(
+                    transient_for=self,
+                    flags=0,
+                    message_type=Gtk.MessageType.ERROR,
+                    buttons=Gtk.ButtonsType.OK,
+                    text=f"an error occurred: {e}"
+                )
+                error_dialog.run()
+                error_dialog.destroy()
         else:
-            print(f"Uninstall.sh wasn't found at {script_path}.")
+            # if uninstall isn't found
+            error_dialog = Gtk.MessageDialog(
+                transient_for=self,
+                flags=0,
+                message_type=Gtk.MessageType.ERROR,
+                buttons=Gtk.ButtonsType.OK,
+                text="uninstall.sh wasn't found"
+            )
+            error_dialog.run()
+            error_dialog.destroy()
 
-    def remove_all_tracking(self, button, parent_window):
-        """clear all tracked folders"""
-        print("removing all tracked folders...")
-        parent_window.tracked_folders.clear()
-        if parent_window.folder_list_box:
-            for child in parent_window.folder_list_box.get_children():
-                parent_window.folder_list_box.remove(child)
-        print("all tracking removed.")
+# removed the other button / function here for removing all
 
 #----------------------------------------------------------------------------------------------
 
