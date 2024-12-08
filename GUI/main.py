@@ -75,10 +75,6 @@ class SettingsWindow(Gtk.Window):
 # main gtk window class
 # manages the GUI layout, tabs, and functionality
 class program_window(Gtk.Window):
-    def open_settings_window(self, button):
-        """open the settings window."""
-        settings_window = SettingsWindow(self)
-        settings_window.show_all()
 
     # initialize the program_window object
     def __init__(self):
@@ -126,7 +122,10 @@ class program_window(Gtk.Window):
         # "Replay" tab
         tab_replay = replay.create_tab(self)
         notebook.append_page(tab_replay, Gtk.Label(label=TAB2_NAME))
-
+   def open_settings_window(self, button):
+        """open the settings window."""
+        settings_window = SettingsWindow(self)
+        settings_window.show_all()
        
 #----------------------------------------------------------------------------------------------
 
