@@ -18,7 +18,7 @@ NATracker is a file system journaling tool developed for **CSIT 435: Introductio
 ### Team Members and Contributions
 
 ### Miles Calloway
-- Developed **99% of the backend**, including functionality for directory tracking and monitoring.
+- Developed **100% of the backend**, including functionality for directory tracking and monitoring.
 - Assisted with the **replay functionality** integration into the GUI.
 
 ### Zachary Stofko
