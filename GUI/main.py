@@ -5,29 +5,30 @@ from gi.repository import Gdk # for the screen / display
 import os
 
 # import modules for functions of the program
-import tracker
-import replay
+import tracker # module for the fodler tracker tab
+import replay # module for the replay tab
 
 #----------------------------------------------------------------------------------------------
 
 # gui settings
-BORDER_WIDTH = 12
-PROGRAM_NAME = "NATracker"
-TAB1_NAME = "Folder Tracker"
-TAB2_NAME = "Replay"
+BORDER_WIDTH = 12 # padding around the window content
+PROGRAM_NAME = "NATracker" # name displayed on the application title bar
+TAB1_NAME = "Folder Tracker" # label for the first tab
+TAB2_NAME = "Replay" # label for the second tab
 PROGRAM_MIN_WIDTH = 640
 PROGRAM_MIN_HEIGHT = 480
 
 #----------------------------------------------------------------------------------------------
 
 # main gtk window class
+# manages the GUI layout, tabs, and functionality
 class program_window(Gtk.Window):
 
     # initialize the program_window object
     def __init__(self):
     
-        super().__init__(title=PROGRAM_NAME)
-        self.set_border_width(BORDER_WIDTH)
+        super().__init__(title=PROGRAM_NAME) # initialize the parent Gtk.Window
+        self.set_border_width(BORDER_WIDTH) # set the window padding
         
         if (Gdk.Display.get_default().get_primary_monitor().get_geometry().width) >= 1920 and (Gdk.Display.get_default().get_primary_monitor().get_geometry().height) >= 1080:
             self.set_default_size(
@@ -36,6 +37,9 @@ class program_window(Gtk.Window):
             )
         else:
             self.set_default_size(PROGRAM_MIN_WIDTH, PROGRAM_MIN_HEIGHT)
+
+        # create a header bar with a close button and the settings icon
+        # this section of the code was not written by Zach
         hb = Gtk.HeaderBar()
         hb.set_show_close_button(True)
         hb.props.title = "HeaderBar example"
@@ -45,8 +49,12 @@ class program_window(Gtk.Window):
         image = Gtk.Image.new_from_gicon(icon, Gtk.IconSize.BUTTON)
         button.add(image)
         hb.pack_end(button)
+
+        # center the window on the screen
         self.set_position(Gtk.WindowPosition.CENTER)
 
+        # create a notebook  for the window which is what holds
+        # the separate tabs for Folder Tracking and Replay
         notebook = Gtk.Notebook()
         self.add(notebook)
 
