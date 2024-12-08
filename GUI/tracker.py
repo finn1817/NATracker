@@ -25,6 +25,11 @@ def create_tab(app):
     remove_button.connect("clicked", lambda widget: on_remove_directory_clicked(app))
     vbox.pack_start(remove_button, False, False, 0)
 
+    #"Remove All Tracked Folders" button
+    remove_all_button = Gtk.Button(label="Remove All Tracked Folders")
+    remove_all_button.connect("clicked", lambda widget: on_remove_all_folders_clicked(app))
+    vbox.pack_start(remove_all_button, False, False, 0)
+    
     #listbox for the tracked folders
     folder_list_box = Gtk.ListBox()
     folder_list_box.set_selection_mode(Gtk.SelectionMode.MULTIPLE)
@@ -72,6 +77,16 @@ def on_remove_directory_clicked(app):
     for row in selected_rows:
         directory = row.get_child().get_text()
         remove_tracking(app, directory)
+
+# new function to remove EVERY tracked folder
+def on_remove_all_folders_clicked(app):
+    # loops through all tracked folders and removes them
+    for folder in app.tracked_folders.copy():
+        remove_tracking(app, folder)
+
+    # updates GUI
+    app.remove_button.set_sensitive(False)  # disable button after removal
+    show_tracked_folders(app)  # update the list to show it's empty
 
 #----------------------------------------------------------------------------------------------
 
