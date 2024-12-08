@@ -1,16 +1,16 @@
 #!/bin/bash
-#Install.sh
+#Install.sh - Installer script for NATracker
 
-# make sure the script is being ran as root
+# check if the script is being ran as root; exit if not
 if [ "$EUID" -ne 0 ]; then
     echo "Please run as root"
     exit 1
 fi
 
-# NATracker repository link
+# NATracker repository link for cloning
 REPO_URL="https://github.com/mcallbosco/NATracker.git"
 
-# remove existing NATracker project if it already exists
+# remove existing NATracker project if one already exists
 if [ -d "/opt/NATracker" ]; then
     rm -rf /opt/NATracker
 fi
@@ -18,19 +18,16 @@ if [ -L "/usr/local/bin/NATracker" ]; then
     rm /usr/local/bin/NATracker
 fi
 
-# install python 3
+# install necessary Python and GTK dependencies
 sudo apt install python3 -y
-
-# install python packages for GTK use
 sudo apt install python3-gi gir1.2-gtk-3.0 -y
 sudo apt install pip -y
-# install inotify package
 sudo pip install inotify_simple --break-system-packages
 sudo pip install dill --break-system-packages
 sudo apt install dbus # install dbus to fix issue with GUI
 sudo apt install dbus-x11
 
-# install git
+# install git for cloning the repository
 sudo apt install git -y
 
 # define the cron job to run the script on startup
