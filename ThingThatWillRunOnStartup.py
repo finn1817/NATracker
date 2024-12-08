@@ -1,5 +1,5 @@
-import threading   # for creating threads to run multiple tasks concurrently
-import os          # for running commands on the system
+import threading # for creating threads to run multiple tasks concurrently
+import os # for running commands on the system
 
 # class representing a single folder watcher
 class Watcher:
