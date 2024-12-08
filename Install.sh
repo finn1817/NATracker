@@ -24,8 +24,8 @@ sudo apt install python3-gi gir1.2-gtk-3.0 -y
 sudo apt install pip -y
 sudo pip install inotify_simple --break-system-packages
 sudo pip install dill --break-system-packages
-sudo apt install dbus # install dbus to fix issue with GUI
-sudo apt install dbus-x11
+sudo apt install dbus -y # install dbus to fix issue with GUI
+sudo apt install dbus-x11 -y
 
 # install git for cloning the repository
 sudo apt install git -y
