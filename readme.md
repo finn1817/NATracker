@@ -3,7 +3,7 @@
 ---
 
 ### Project Overview
-NATracker is a file system journaling tool developed for CSIT 435: Introduction to Operating Systems at SUNY Fredonia. This program runs in the background and monitors changes in directories and files, providing functionality for setup, management, and replaying tracked data. It features a GUI for user interaction, as well as streamlined installation and uninstallation scripts.
+NATracker is a file system journaling tool developed for **CSIT 435: Introduction to Operating Systems** at **SUNY Fredonia**. This program runs in the background and monitors changes in directories and files, providing functionality for setup, management, and replaying tracked data. It features a GUI for user interaction, as well as streamlined installation and uninstallation scripts.
 
 ---
 
