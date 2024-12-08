@@ -1,4 +1,6 @@
 #!/bin/bash
+#Uninstall.sh
+
 # run with root privileges
 if [ "$EUID" -ne 0 ]; then
     echo "please run as root"
@@ -78,4 +80,3 @@ sudo pip uninstall -y inotify_simple --break-system-packages || echo "error unin
 
 # note to user to 'confirm' uninstalls finished
 echo "The uninstall process is finished, all NATracker files, tracked folders, symlinks, and cron jobs have been removed."
-
