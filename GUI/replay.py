@@ -62,7 +62,6 @@ def create_tab(app):
     journal_entries_box = Gtk.ListBox()
     journal_entries_box.set_selection_mode(Gtk.SelectionMode.SINGLE)
     journal_entries_box.connect("row-selected", lambda box, row: on_row_selected(app, row))
-    vbox.pack_start(journal_entries_box, True, True, 0)
 
     # Create a scrolled window and add the listbox to it
     scrolled_window = Gtk.ScrolledWindow()
