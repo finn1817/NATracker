@@ -294,21 +294,23 @@ def recreateFile(diffJournal):
 # called to create the text file but only up to a specified change
 def recreateUpToEntry(diffJournal, entry):
     file = {}
-    #insert contents before diff
     contentsBeforeDiffSplit = diffJournal.contentsBeforeDiff.splitlines()
     for line in range(0, len(contentsBeforeDiffSplit)):
         file[line] = contentsBeforeDiffSplit[line]
+    all_entries = []
     for change in diffJournal.JournalEntrys:
-        returnOnNext = False
-        for journalEntry in change:
-            if journalEntry[2]:
-                file[journalEntry[0]] = journalEntry[1] + str(journalEntry[0])
-            else:
-                file[journalEntry[0]] = ""
-            if change == entry:
-                returnOnNext = True 
+        all_entries.extend(change)
+    all_entries.sort(key=lambda x: x[0]) 
+    returnOnNext = False
+    for journalEntry in all_entries:
+        if journalEntry[2]:
+            file[journalEntry[0]] = journalEntry[1]
+        else:
+            file[journalEntry[0]] = ""
+        if journalEntry == entry:
+            returnOnNext = True
         if returnOnNext:
-            return dictToString(file)
+            break
     return dictToString(file)
 
 # ----------------------------------------------------------------------------------------------
