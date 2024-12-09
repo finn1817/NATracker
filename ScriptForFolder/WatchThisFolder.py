@@ -213,7 +213,7 @@ def updateJournal(file):
     initialState = journal.contentsBeforeDiff
     lastState = ""
     if len(journal.JournalEntrys) == 0 and initialState == "":
-        journal.contentsBeforeDiff = newFile
+        diff = figureOutDiff("", newFile)
         with open(currentDir + "/.NATracker/" + str(journal.JournalID) + ".journal", "wb") as journalFile:
             pickle.dump(listhack(journal), journalFile)
         return
@@ -233,7 +233,7 @@ def updateJournal(file):
 
     #if the journal is too long, remove the first entry and add it to contentsBeforeDiff
     if len(journal.JournalEntrys) > journal.JournalLimit:
-        journal.contentsBeforeDiff = recreateUpToEntry(journal, journal.JournalEntrys[1])
+        #journal.contentsBeforeDiff = recreateUpToEntry(journal, journal.JournalEntrys[1])
         journal.JournalEntrys.pop(0)
 
     
