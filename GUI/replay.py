@@ -178,11 +178,9 @@ def listunhack(list):
 # to put into the string list that is displayed in the listbox
 def dictToString(dict): 
     #sort the dictionary by key
-    dict = dict.items()
-    dict = sorted(dict)
     string = ""
     for line in dict:
-        string += dict[line] + "\n"
+        string += line + "\n"
     return string
 
 
