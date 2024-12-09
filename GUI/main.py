@@ -115,56 +115,6 @@ class SettingsWindow(Gtk.Window):
 
 #----------------------------------------------------------------------------------------------
 
-# settings window class
-class SettingsWindow(Gtk.Window):
-    def __init__(self, parent_window):
-        super().__init__(title="Settings")
-        self.set_transient_for(parent_window)  # Link to parent window
-        self.set_border_width(10)
-        self.set_default_size(300, 200)
-        self.set_position(Gtk.WindowPosition.CENTER)
-
-        # layout for settings window
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        self.add(vbox)
-
-        # run Uninstall.sh button
-        uninstaller_button = Gtk.Button(label="run uninstaller")
-        uninstaller_button.connect("clicked", self.run_uninstaller)
-        vbox.pack_start(uninstaller_button, False, False, 0)
-
-    def run_uninstaller(self, button):
-        """run uninstall.sh"""
-        script_path = "/opt/NATracker/Uninstall.sh"  # path to uninstall
-    
-        if os.path.exists(script_path):
-            try:
-                # to make sure uninstall is executable as this was my main issue
-                os.chmod(script_path, 0o755)  # give it execute permissions
-            
-                # to run the uninstaller script
-                subprocess.run([script_path], check=True)
-                print("uninstall.sh has been executed successfully.")
-            except subprocess.CalledProcessError as e:
-                print(f"error during uninstall: {e}")
-            except Exception as e:
-                print(f"error: {e}")
-        else:
-            print(f"Uninstall.sh wasn't found at {script_path}.")
-
-    def remove_all_tracking(self, button, parent_window):
-        """clear all tracked folders"""
-        print("removing all tracked folders...")
-        parent_window.tracked_folders.clear()
-        if parent_window.folder_list_box:
-            for child in parent_window.folder_list_box.get_children():
-                parent_window.folder_list_box.remove(child)
-        print("all tracking removed.")
-
-#----------------------------------------------------------------------------------------------
-
-
-
 # main gtk window class
 # manages the GUI layout, tabs, and functionality
 class program_window(Gtk.Window):
