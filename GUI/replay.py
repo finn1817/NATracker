@@ -176,9 +176,9 @@ def listunhack(list):
 
 # function to translate the journal list entries into strings
 # to put into the string list that is displayed in the listbox
-def dictToString(dict): 
+def dictToString(dict):
     string = ""
-    for line in dict:
+    for line in sorted(dict.keys()):
         string += dict[line] + "\n"
     return string
 
@@ -279,6 +279,7 @@ def save_replayed_file(parent, replayed_content):
 # called to create the text file
 def recreateFile(diffJournal):
     file = {}
+    
     #insert contents before diff
     contentsBeforeDiffSplit = diffJournal.contentsBeforeDiff.splitlines()
     for line in range(0, len(contentsBeforeDiffSplit)):
