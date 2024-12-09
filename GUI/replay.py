@@ -40,7 +40,7 @@ stringList = []
 dateList = []
 
 # ----------------------------------------------------------------------------------------------
-journal_entries_box = Null
+journal_entries_box = None
 # creates the folder tracker tab for the GUI
 def create_tab(app):
 
