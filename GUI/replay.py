@@ -70,7 +70,7 @@ def create_tab(app):
     vbox.pack_start(scrollable_window, True, True, 0)
 
     # assign the listbox and buttons to the app
-    app.scrollable_window = scrollable_window
+    app.journal_entries_box = scrollable_window
     app.locate_button = locate_button
     app.replay_button = replay_button
     
