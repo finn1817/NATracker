@@ -179,8 +179,8 @@ def listunhack(list):
 def dictToString(dict): 
     #sort the dictionary by key
     string = ""
-    for line in dict:
-        string += line + "\n"
+    for i in range(0, len(dict)):
+        string += dict[i] + "\n"
     return string
 
 
