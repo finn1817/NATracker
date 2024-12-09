@@ -121,8 +121,8 @@ def on_locate_file_clicked(app):
         # clearing existing data in the lists
         dateList.clear()
         stringList.clear()
-        app.journal_entries_box.clear()
-        
+        for row in app.journal_entries_box.get_children():
+            app.journal_entries_box.remove(row)
         # adding items from the journal to dateList and stringList.
         # the indexes of dateList and stringList correlate
         for i in journal.JournalEntrys:
