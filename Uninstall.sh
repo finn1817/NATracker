@@ -71,6 +71,8 @@ else
     echo "$SYMLINK_GUI_PATH doesn't exist, skipping"
 fi
 
+sudo rm /usr/share/applications/folderTrackerGUI.desktop
+
 # remove cron job
 (sudo crontab -l | grep -v "$CRON_JOB") | sudo crontab -
 echo "removed NATracker cron job from crontab."
