@@ -214,6 +214,7 @@ def updateJournal(file):
     lastState = ""
     if len(journal.JournalEntrys) == 0 and initialState == "":
         diff = figureOutDiff("", newFile)
+        journal.JournalEntrys.append(diff)
         with open(currentDir + "/.NATracker/" + str(journal.JournalID) + ".journal", "wb") as journalFile:
             pickle.dump(listhack(journal), journalFile)
         return
