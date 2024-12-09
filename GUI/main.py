@@ -128,11 +128,6 @@ class SettingsWindow(Gtk.Window):
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.add(vbox)
 
-        # remove all tracking button
-        remove_tracking_button = Gtk.Button(label="remove all tracking")
-        remove_tracking_button.connect("clicked", self.remove_all_tracking, parent_window)
-        vbox.pack_start(remove_tracking_button, False, False, 0)
-
         # run Uninstall.sh button
         uninstaller_button = Gtk.Button(label="run uninstaller")
         uninstaller_button.connect("clicked", self.run_uninstaller)
