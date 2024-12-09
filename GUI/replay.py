@@ -40,7 +40,7 @@ stringList = []
 dateList = []
 
 # ----------------------------------------------------------------------------------------------
-
+journal_entries_box = Null
 # creates the folder tracker tab for the GUI
 def create_tab(app):
 
@@ -70,7 +70,7 @@ def create_tab(app):
     vbox.pack_start(scrollable_window, True, True, 0)
 
     # assign the listbox and buttons to the app
-    app.journal_entries_box = journal_entries_box
+    app.journal_entries_box = scrollable_window
     app.locate_button = locate_button
     app.replay_button = replay_button
     
@@ -85,7 +85,7 @@ def on_row_selected(app, row):
 
 # when the locate file button is clicked
 def on_locate_file_clicked(app):
-
+    global journal_entries_box
     global journal
 
     # brings up the file explorer when the locate file button is pressed
@@ -136,8 +136,8 @@ def on_locate_file_clicked(app):
             row = Gtk.ListBoxRow()
             label = Gtk.Label(label=date, xalign=0)
             row.add(label)
-            app.journal_entries_box.add(row)
-        app.journal_entries_box.show_all()
+            journal_entries_box.add(row)
+        journal_entries_box.show_all()
         
     # if no journal is found for a text file 
     else:
@@ -186,12 +186,13 @@ def dictToString(dict):
 
 # when the replay button is clicked
 def on_replay_clicked(app):
+    global journal_entries_box
     
     # Get the selected row's index
-    selected_row = app.journal_entries_box.get_selected_row()
+    selected_row = journal_entries_box.get_selected_row()
     
     if selected_row:
-        index = app.journal_entries_box.get_children().index(selected_row)
+        index = journal_entries_box.get_children().index(selected_row)
     
         
         entry_to_replay = recreateUpToEntry(journal, journal.JournalEntrys[index])
