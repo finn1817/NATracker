@@ -303,7 +303,7 @@ def recreateUpToEntry(diffJournal, entry):
         returnOnNext = False
         for journalEntry in change:
             if journalEntry[2]:
-                file[journalEntry[0]] = journalEntry[1] + str(journalEntry[0])
+                file[journalEntry[0]] = journalEntry[1] 
             else:
                 file[journalEntry[0]] = ""
             if change == entry:

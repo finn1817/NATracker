@@ -141,9 +141,9 @@ def figureOutDiff(string1, string2):
 
     return finalChanges
 
-def dictToSting(dict): 
+def dictToSting(dict):
     string = ""
-    for line in dict:
+    for line in sorted(dict.keys()):
         string += dict[line] + "\n"
     return string
 
