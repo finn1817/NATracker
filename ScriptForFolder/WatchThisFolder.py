@@ -231,7 +231,7 @@ def updateJournal(file):
     #add the diff to the journal
     if diff != []:
         journal.JournalEntrys.append(diff)
-
+    print(len(journal.JournalEntrys))
     #if the journal is too long, remove the first entry and add it to contentsBeforeDiff
     if len(journal.JournalEntrys) > journal.JournalLimit:
         #journal.contentsBeforeDiff = recreateUpToEntry(journal, journal.JournalEntrys[1])
