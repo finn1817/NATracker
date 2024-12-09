@@ -64,8 +64,12 @@ def create_tab(app):
     journal_entries_box.connect("row-selected", lambda box, row: on_row_selected(app, row))
     vbox.pack_start(journal_entries_box, True, True, 0)
 
+    scrollable_window = Gtk.ScrolledWindow()
+    scrollable_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+    scrollable_window.add(journal_entries_box)
+
     # assign the listbox and buttons to the app
-    app.journal_entries_box = journal_entries_box
+    app.journal_entries_box = scrollable_window
     app.locate_button = locate_button
     app.replay_button = replay_button
     
