@@ -99,7 +99,6 @@ def watcher():
             if creationEvent not in inodeDict.keys() or str(inodeDict[creationEvent])+".journal" not in os.listdir(currentDir + "/.NATracker"):
                 initilizeJournal(creationEvent)
             else:
-                print("This should Run")
                 #rename journal, this is to account for weird behavior in gnome text editor
                 time.sleep(.5)
                 #make sure file is still there
