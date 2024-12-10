@@ -281,7 +281,7 @@ def main():
 
     #check for a journal file for each file
     for file in files:
-        if str(inodeDict[file])+file+".journal" not in journalFiles:
+        if str(inodeDict[file])+".journal" not in journalFiles:
             initilizeJournal(file)
     
 
