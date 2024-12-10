@@ -77,6 +77,7 @@ def watcher():
             elif event.mask == 2: #File Modified
                 modification.append(event.name)
             elif event.mask == 128: #File Moved here
+                print (os.stat(currentDir+"/" + event.name).st_ino)
                 creation.append(event.name)
             elif event.mask == 64: #File Moved away
                 print ("File Moved Away: " + event.name)
