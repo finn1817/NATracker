@@ -49,12 +49,13 @@ def watcher():
     wd = inotify.add_watch(currentDir, watch_flags)
 
     while True:
-        time.sleep(1)
-        dirs = os.walk(currentDir)
         for dir in dirs:
             for file in dir[2]:
                 inodeDict[file] = os.stat(dir[0]+"/" +file).st_ino
             break
+        time.sleep(1)
+        dirs = os.walk(currentDir)
+        
         #check if this script still exsists
         if not os.path.exists(os.path.realpath(__file__)):
             exit()
@@ -93,6 +94,7 @@ def watcher():
                         os.rename(currentDir + "/.NATracker/" + str(inodeDict[event.name]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir + "/" + event.name).st_ino) + ".journal")
                         if event.name in creation:
                             creation.remove(event.name)
+                            modification.append(event.name)
         #make sure the deletion IDs are not in any other events
         for deletionEvent in deletion:
             if deletionEvent in creation:
