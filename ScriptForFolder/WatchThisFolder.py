@@ -99,8 +99,12 @@ def getJournal(fileName):
 #Wont check, will overwrite
 def initilizeJournal(file):
     try:
+        with open(currentDir + "/" + file, "r") as file:
+            newFile = file.read()
         fileID = str(os.stat(currentDir+"/" +file).st_ino) + file
         journal = Journal(fileID)
+        diff = figureOutDiff("", newFile)
+        journal.JournalEntrys.append(diff)
         with open(currentDir + "/.NATracker/" + str(fileID) + ".journal", "wb") as journalFile:
             pickle.dump(listhack(journal), journalFile)
         return journal
