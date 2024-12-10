@@ -224,7 +224,7 @@ def updateJournal(file):
     print ("Previous Version: ")
     print(previousVersion)
 
-    if previousVersion == newFile:
+    if previousVersion == newFile or newFile == "":
         return
     #get the diff
     diff = figureOutDiff(previousVersion, newFile)
