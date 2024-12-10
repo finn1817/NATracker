@@ -35,7 +35,7 @@ currentDir = pythonFileLocation
 
 def watcher():
     inotify = INotify()
-    watch_flags = flags.ALL
+    watch_flags = flags.CREATE | flags.DELETE | flags.MODIFY | flags.DELETE_SELF | flags.MOVED_TO | flags.MOVED_FROM
     wd = inotify.add_watch(currentDir, watch_flags)
 
     while True:
@@ -53,8 +53,6 @@ def watcher():
             #Sometimes temp files have .txt in the name but not as the last extension. 
             if event.name[-4:] != ".txt":
                 continue
-            print ("Event: " + event.name + " " + str(event.mask))
-
             if event.mask == 256:   #File Created
                 creation.append(event.name)
             elif event.mask == 512: #File Deleted
