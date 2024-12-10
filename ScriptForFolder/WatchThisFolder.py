@@ -107,7 +107,11 @@ def watcher():
             for event in handleWeirdGnomeBehavior:
                 if os.path.exists(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal"):
                     os.rename(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir + "/" + event).st_ino) + ".journal")
+            
             handleWeirdGnomeBehavior = []
+            updateJournal(event)
+            if event in creation:
+                creation.remove(event)
             if event in deletion:
                 deletion.remove(event)
             if event in modification:
