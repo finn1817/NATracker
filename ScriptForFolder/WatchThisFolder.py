@@ -35,10 +35,7 @@ currentDir = pythonFileLocation
 
 def watcher():
     inotify = INotify()
-    watch_flags = (flags.CREATE | flags.DELETE | flags.MODIFY | 
-              flags.DELETE_SELF | flags.MOVED_TO | flags.MOVED_FROM |
-              flags.CLOSE_WRITE | flags.ATTRIB | flags.ONLYDIR | 
-              flags.MOVE_SELF | flags.ISDIR)
+    watch_flags = flags.ALL
     wd = inotify.add_watch(currentDir, watch_flags)
 
     while True:
