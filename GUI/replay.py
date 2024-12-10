@@ -108,7 +108,7 @@ def on_locate_file_clicked(app):
     if response == Gtk.ResponseType.OK:
         
         pathStr = dialog.get_filename()
-        fileID = os.stat(pathStr).st_ino
+        fileID = os.stat(pathStr).st_ino + pathStr.rsplit("/", 1)[1]
         pythonFileLocation = pathStr.rsplit("/", 1)[0]
         pythonFileLocation = pythonFileLocation+ "/.NATracker/" + str(fileID) + ".journal"
         print(pythonFileLocation)

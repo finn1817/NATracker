@@ -87,7 +87,7 @@ def watcher():
             
 def getJournal(fileName):
     try:
-        fileID = os.stat(currentDir+"/" +fileName).st_ino
+        fileID = os.stat(currentDir+"/" +fileName).st_ino + fileName
         with open(currentDir + "/.NATracker/" + str(fileID) + ".journal", "rb") as journalFile:
             journal = listunhack(pickle.load(journalFile))
         return journal
@@ -99,7 +99,7 @@ def getJournal(fileName):
 #Wont check, will overwrite
 def initilizeJournal(file):
     try:
-        fileID = os.stat(currentDir+"/" +file).st_ino
+        fileID = os.stat(currentDir+"/" +file).st_ino + file
         journal = Journal(fileID)
         with open(currentDir + "/.NATracker/" + str(fileID) + ".journal", "wb") as journalFile:
             pickle.dump(listhack(journal), journalFile)
