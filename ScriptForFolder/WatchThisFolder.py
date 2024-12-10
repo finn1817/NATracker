@@ -50,6 +50,8 @@ def watcher():
 
     while True:
         dirs = os.walk(currentDir)
+        #clear the inodeDict
+        inodeDict = {}
         for dir in dirs:
             for file in dir[2]:
                 inodeDict[file] = os.stat(dir[0]+"/" +file).st_ino
