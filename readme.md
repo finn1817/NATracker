@@ -46,4 +46,6 @@ This program is only intended to work on Ubuntu, but we have had success on othe
 
 Download Install.sh from the repository, locate the file in the terminal, and run the following command to install:
 ```bash
-sudo bash Install.sh
+wget https://raw.githubusercontent.com/mcallbosco/NATracker/refs/heads/main/Install.sh Install.sh
+chmod777 Install.sh
+./Install.sh
