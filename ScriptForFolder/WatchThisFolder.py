@@ -37,8 +37,11 @@ currentDir = pythonFileLocation
 def watcher():
     #walk the directory and add all the files to the inodeDict
     dirs = os.walk(currentDir)
-    for dir in dirs:
-        print (dir)
+    files = dirs[0][2]
+    for file in files:
+        inodeDict[file] = os.stat(currentDir+"/" +file).st_ino
+
+    print (inodeDict)
     
     inotify = INotify()
     watch_flags = (flags.CREATE | flags.DELETE | flags.MODIFY | 
