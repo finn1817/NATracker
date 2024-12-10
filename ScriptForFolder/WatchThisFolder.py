@@ -21,8 +21,7 @@ class Journal:
     def __init__(self, JournalID):
         self.JournalID = JournalID
 
-#dict of file names and their inode ID
-inodeDict = {}
+
 
     
 
@@ -35,12 +34,6 @@ pythonFileLocation = pythonFileLocation.rsplit("/", 1)[0]
 currentDir = pythonFileLocation
 
 def watcher():
-    #walk the directory and add all the files to the inodeDict
-    for (dirpath, dirnames, filenames) in walk(currentDir):
-        for file in filenames:
-            print(file)
-            inodeDict[file] = os.stat(currentDir+"/" +file).st_ino
-    
     inotify = INotify()
     watch_flags = (flags.CREATE | flags.DELETE | flags.MODIFY | 
               flags.DELETE_SELF | flags.MOVED_TO | flags.MOVED_FROM |
@@ -64,7 +57,6 @@ def watcher():
             if event.name[-4:] != ".txt":
                 continue
             print ("Event: " + event.name + " " + str(event.mask))
-            
 
             if event.mask == 256:   #File Created
                 creation.append(event.name)
