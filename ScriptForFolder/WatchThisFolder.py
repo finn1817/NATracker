@@ -81,8 +81,9 @@ def watcher():
                 modification.append(event.name)
             elif event.mask == 128: #File Moved here
                 #check if Inode matches iNodeDict
-                if os.path.exists(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal"):
-                    os.rename(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir + "/" + event).st_ino) + ".journal")
+                if event.name in inodeDict.keys():
+                    if inodeDict[event.name] == os.stat(currentDir + "/" + event.name).st_ino:
+                        handleWeirdGnomeBehavior.append(event.name)
                 creation.append(event.name)
             elif event.mask == 64: #File Moved away
                 print ("File Moved Away: " + event.name)
@@ -98,11 +99,19 @@ def watcher():
                     modification.remove(deletionEvent)
             if deletionEvent in modification:
                 modification.remove(deletionEvent)
-        #make sure the creation IDs are not in any other events
-        for creationEvent in creation:
-            if creationEvent in deletion or creationEvent in modification:
-                creation.remove(creationEvent)
 
+        if handleWeirdGnomeBehavior != []:
+            print("Weird Gnome Behavior")
+            print(handleWeirdGnomeBehavior)
+            #rename the file
+            for event in handleWeirdGnomeBehavior:
+                if os.path.exists(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal"):
+                    os.rename(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir + "/" + event).st_ino) + ".journal")
+            handleWeirdGnomeBehavior = []
+            if event in deletion:
+                deletion.remove(event)
+            if event in modification:
+                modification.remove(event)
         for creationEvent in creation:
             if creationEvent not in inodeDict.keys() or str(inodeDict[creationEvent])+".journal" not in os.listdir(currentDir + "/.NATracker"):
                 initilizeJournal(creationEvent)
