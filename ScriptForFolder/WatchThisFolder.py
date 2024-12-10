@@ -63,7 +63,6 @@ def watcher():
         creation = []
         deletion = []
         modification = []
-        handleWeirdGnomeBehavior = []
 
         for event in inotify.read():
             #make sure it's a txt file make sure it doesn't end with anything else
@@ -80,10 +79,6 @@ def watcher():
             elif event.mask == 2: #File Modified
                 modification.append(event.name)
             elif event.mask == 128: #File Moved here
-                #check if Inode matches iNodeDict
-                if event.name in inodeDict.keys():
-                    if inodeDict[event.name] == os.stat(currentDir + "/" + event.name).st_ino:
-                        handleWeirdGnomeBehavior.append(event.name)
                 creation.append(event.name)
             elif event.mask == 64: #File Moved away
                 print ("File Moved Away: " + event.name)
@@ -100,25 +95,16 @@ def watcher():
             if deletionEvent in modification:
                 modification.remove(deletionEvent)
 
-        if handleWeirdGnomeBehavior != []:
-            print("Weird Gnome Behavior")
-            print(handleWeirdGnomeBehavior)
-            #rename the file
-            for event in handleWeirdGnomeBehavior:
-                if os.path.exists(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal"):
-                    os.rename(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal", currentDir + "/.NATracker/" + event + ".journal")
-            
-            handleWeirdGnomeBehavior = []
-            updateJournal(event)
-            if event in creation:
-                creation.remove(event)
-            if event in deletion:
-                deletion.remove(event)
-            if event in modification:
-                modification.remove(event)
         for creationEvent in creation:
             if creationEvent not in inodeDict.keys() or str(inodeDict[creationEvent])+".journal" not in os.listdir(currentDir + "/.NATracker"):
                 initilizeJournal(creationEvent)
+            else:
+                print("This should Run")
+                #rename journal, this is to account for weird behavior in gnome text editor
+                time.sleep(.5)
+                #make sure file is still there
+                if str(os.stat(currentDir+"/" +creationEvent).st_ino) + ".journal" in os.listdir(currentDir):
+                    os.rename(currentDir + "/.NATracker/" + str(inodeDict[creationEvent]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir+"/" +creationEvent).st_ino) + ".journal")
             print("File Created: " + creationEvent)
         for deletionEvent in deletion:
             print("File Deleted: " + deletionEvent)
