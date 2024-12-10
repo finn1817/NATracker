@@ -126,8 +126,10 @@ def on_locate_file_clicked(app):
         # adding items from the journal to dateList and stringList.
         # the indexes of dateList and stringList correlate
         for i in journal.JournalEntrys:
-            dateList.append(datetime.datetime.fromtimestamp(i[0][3]
-).strftime('%Y-%m-%d %H:%M:%S'))
+            try:
+                dateList.append(datetime.datetime.fromtimestamp(i[0][3]).strftime('%Y-%m-%d %H:%M:%S'))
+            except:
+                dateList.append("No date found")
             stringList.append(recreateUpToEntry(journal,i))
         #print (dateList)
         #print (stringList)
