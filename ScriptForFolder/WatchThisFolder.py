@@ -96,7 +96,7 @@ def watcher():
                 modification.remove(deletionEvent)
 
         for creationEvent in creation:
-            if creationEvent not in inodeDict.keys() and os.path.exists(currentDir+"/.NATracker/" + inodeDict[creationEvent] + ".journal"):
+            if creationEvent not in inodeDict.keys() or str(inodeDict[creationEvent])+".journal" not in os.listdir(currentDir + "/.NATracker"):
                 initilizeJournal(creationEvent)
             else:
                 #rename journal, this is to account for weird behavior in gnome text editor
