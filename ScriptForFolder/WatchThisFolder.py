@@ -87,7 +87,7 @@ def watcher():
             
 def getJournal(fileName):
     try:
-        fileID = os.stat(currentDir+"/" +fileName).st_ino + fileName
+        fileID = str(os.stat(currentDir+"/" +fileName).st_ino) + fileName
         with open(currentDir + "/.NATracker/" + str(fileID) + ".journal", "rb") as journalFile:
             journal = listunhack(pickle.load(journalFile))
         return journal
@@ -281,7 +281,7 @@ def main():
 
     #check for a journal file for each file
     for file in files:
-        if str(inodeDict[file])+file+".journal" not in journalFiles:
+        if str(inodeDict[file])+ file +".journal" not in journalFiles:
             initilizeJournal(file)
     
 
