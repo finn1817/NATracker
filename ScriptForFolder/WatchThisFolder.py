@@ -83,8 +83,7 @@ def watcher():
                 #check if Inode matches iNodeDict
                 if os.path.exists(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal"):
                     os.rename(currentDir + "/.NATracker/" + str(inodeDict[event]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir + "/" + event).st_ino) + ".journal")
-                else:
-                    creation.append(event.name)
+                creation.append(event.name)
             elif event.mask == 64: #File Moved away
                 print ("File Moved Away: " + event.name)
                 deletion.append(event.name)
