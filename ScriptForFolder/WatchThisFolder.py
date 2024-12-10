@@ -81,19 +81,18 @@ def watcher():
                 modification.append(event.name)
             elif event.mask == 128: #File Moved here
                 #check if Inode matches iNodeDict
-                if event.name in inodeDict.keys():
-                    if inodeDict[event.name] == os.stat(currentDir + "/" + event.name).st_ino:
-                        creation.append(event.name)
-                    else:
-                         os.rename(currentDir + "/.NATracker/" + str(inodeDict[event.name]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir + "/" + event.name).st_ino) + ".journal")
-                else:
-                    creation.append(event.name)
+                creation.append(event.name)
                    
             elif event.mask == 64: #File Moved away
                 print ("File Moved Away: " + event.name)
                 deletion.append(event.name)
             else:
                 print("Unknown Event: " + event.name + " " + str(event.mask))
+                if event.name in inodeDict.keys():
+                    if inodeDict[event.name] == os.stat(currentDir + "/" + event.name).st_ino:
+                        os.rename(currentDir + "/.NATracker/" + str(inodeDict[event.name]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir + "/" + event.name).st_ino) + ".journal")
+                    if event.name in creation:
+                        creation.remove(event.name)
         #make sure the deletion IDs are not in any other events
         for deletionEvent in deletion:
             if deletionEvent in creation:
