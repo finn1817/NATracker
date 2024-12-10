@@ -82,7 +82,6 @@ def watcher():
                 print ("File Moved Away: " + event.name)
                 deletion.append(event.name)
             else:
-                print (os.stat(currentDir+"/" + event.name).st_ino)
                 print("Unknown Event: " + event.name + " " + str(event.mask))
         #make sure the deletion IDs are not in any other events
         for deletionEvent in deletion:
