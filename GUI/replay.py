@@ -128,9 +128,9 @@ def on_locate_file_clicked(app):
         for i in journal.JournalEntrys:
             try:
                 dateList.append(datetime.datetime.fromtimestamp(i[0][3]).strftime('%Y-%m-%d %H:%M:%S'))
+                stringList.append(recreateUpToEntry(journal,i))
             except:
-                dateList.append("No date found")
-            stringList.append(recreateUpToEntry(journal,i))
+                pass
         #print (dateList)
         #print (stringList)
         
