@@ -89,10 +89,10 @@ def watcher():
             else:
                 print("Unknown Event: " + event.name + " " + str(event.mask))
                 if event.name in inodeDict.keys():
-                    if inodeDict[event.name] != os.stat(currentDir + "/" + event.name).st_ino:
+                    if inodeDict[event.name] == os.stat(currentDir + "/" + event.name).st_ino:
                         os.rename(currentDir + "/.NATracker/" + str(inodeDict[event.name]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir + "/" + event.name).st_ino) + ".journal")
-                        if event.name in creation:
-                            creation.remove(event.name)
+                    if event.name in creation:
+                        creation.remove(event.name)
         #make sure the deletion IDs are not in any other events
         for deletionEvent in deletion:
             if deletionEvent in creation:
