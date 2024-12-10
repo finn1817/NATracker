@@ -49,13 +49,12 @@ def watcher():
     wd = inotify.add_watch(currentDir, watch_flags)
 
     while True:
-        dirs = os.walk(currentDir)
         for dir in dirs:
             for file in dir[2]:
                 inodeDict[file] = os.stat(dir[0]+"/" +file).st_ino
             break
         time.sleep(1)
-        
+        dirs = os.walk(currentDir)
         
         #check if this script still exsists
         if not os.path.exists(os.path.realpath(__file__)):
