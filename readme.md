@@ -48,4 +48,4 @@ Download Install.sh from the repository, locate the file in the terminal, and ru
 ```bash
 wget https://raw.githubusercontent.com/mcallbosco/NATracker/refs/heads/main/Install.sh Install.sh
 chmod777 Install.sh
-./Install.sh
+sudo ./Install.sh
