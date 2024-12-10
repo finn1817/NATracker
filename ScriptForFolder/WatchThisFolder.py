@@ -36,11 +36,7 @@ currentDir = pythonFileLocation
 
 def watcher():
     #walk the directory and add all the files to the inodeDict
-    dirs = os.walk(currentDir)
-    for dir in dirs:
-        for file in dir[2]:
-            inodeDict[file] = os.stat(dir[0]+"/" +file).st_ino
-        break
+    
     
 
     print (inodeDict)
@@ -54,6 +50,11 @@ def watcher():
 
     while True:
         time.sleep(1)
+        dirs = os.walk(currentDir)
+        for dir in dirs:
+            for file in dir[2]:
+                inodeDict[file] = os.stat(dir[0]+"/" +file).st_ino
+            break
         #check if this script still exsists
         if not os.path.exists(os.path.realpath(__file__)):
             exit()
@@ -62,6 +63,7 @@ def watcher():
         creation = []
         deletion = []
         modification = []
+
         for event in inotify.read():
             #make sure it's a txt file make sure it doesn't end with anything else
             #Sometimes temp files have .txt in the name but not as the last extension. 
@@ -77,13 +79,11 @@ def watcher():
             elif event.mask == 2: #File Modified
                 modification.append(event.name)
             elif event.mask == 128: #File Moved here
-                print (os.stat(currentDir+"/" + event.name).st_ino)
                 creation.append(event.name)
             elif event.mask == 64: #File Moved away
                 print ("File Moved Away: " + event.name)
                 deletion.append(event.name)
             else:
-                print (os.stat(currentDir+"/" + event.name).st_ino)
                 print("Unknown Event: " + event.name + " " + str(event.mask))
         #make sure the deletion IDs are not in any other events
         for deletionEvent in deletion:
@@ -96,7 +96,11 @@ def watcher():
                 modification.remove(deletionEvent)
 
         for creationEvent in creation:
-            initilizeJournal(creationEvent)
+            if creationEvent not in inodeDict.keys():
+                initilizeJournal(creationEvent)
+            else:
+                #rename journal, this is to account for weird behavior in gnome text editor
+                os.rename(currentDir + "/.NATracker/" + str(inodeDict[creationEvent]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir+"/" +creationEvent).st_ino) + ".journal")
             print("File Created: " + creationEvent)
         for deletionEvent in deletion:
             print("File Deleted: " + deletionEvent)
