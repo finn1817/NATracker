@@ -116,8 +116,12 @@ def on_locate_file_clicked(app):
         # gets the location of the journal and uses that to store
         # the journal object created from WatchThisFolder.py in the
         # global journal variable to be accessed from anywhere in replay.py
-        journal = getJournal(pythonFileLocation)
-        
+        try:
+            journal = getJournal(pythonFileLocation)
+        except Exception as e:
+            dialog.destroy()
+            show_error_message(app, "Error", f"An error occurred: {e}")
+            return
         # clearing existing data in the lists
         dateList.clear()
         stringList.clear()
