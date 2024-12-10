@@ -100,7 +100,10 @@ def watcher():
                 initilizeJournal(creationEvent)
             else:
                 #rename journal, this is to account for weird behavior in gnome text editor
-                os.rename(currentDir + "/.NATracker/" + str(inodeDict[creationEvent]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir+"/" +creationEvent).st_ino) + ".journal")
+                time.sleep(.5)
+                #make sure file is still there
+                if str(os.stat(currentDir+"/" +creationEvent).st_ino) + ".journal" in os.listdir(currentDir):
+                    os.rename(currentDir + "/.NATracker/" + str(inodeDict[creationEvent]) + ".journal", currentDir + "/.NATracker/" + str(os.stat(currentDir+"/" +creationEvent).st_ino) + ".journal")
             print("File Created: " + creationEvent)
         for deletionEvent in deletion:
             print("File Deleted: " + deletionEvent)
