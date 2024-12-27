@@ -1,7 +1,7 @@
 ### ![NATracker](https://github.com/mcallbosco/NATracker/blob/main/GUI/icon2.png?raw=true)
 
 ### What is this?
-NATracker is a file system journaling tool developed for **CSIT 435: Introduction to Operating Systems** at **SUNY Fredonia**. This program runs in the background and monitors changes in directories and files, providing functionality for setup, management, and replaying tracked data. It features a GUI for user interaction, as well as streamlined installation and uninstallation scripts. Don't expect too much from this, it was something developed as an assignment. 
+NATracker is a file system journaling tool developed for **CSIT 435: Introduction to Operating Systems** at **SUNY Fredonia**. This program runs in the background and monitors changes in directories and files, providing functionality for setup, management, and replaying tracked data. It features a GUI for user interaction, as well as streamlined installation and uninstallation scripts. Don't expect too much from this, it was something developed as an assignment made to meet specific specifications.
 
 ---
 
@@ -49,4 +49,7 @@ sudo ./Install.sh
 ### Shared Contributions
 - The entire team collaborated equally on the **Install.sh** script.
 
+---
 
+###Limitations
+It does not work with text editors that modify the Inode ID of the file, since that is what we used to identify the files. That means KWrite and nano works but gedit doesn't. 
