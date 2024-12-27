@@ -5,10 +5,8 @@ NATracker is a file system journaling tool developed for **CSIT 435: Introductio
 
 ---
 
-### Presentation (Google Slides Link)
+### Presentation about this project 
 https://docs.google.com/presentation/d/17CdpKIwpxkrgSSI4P3ObL77Mcm-ZGDkNl4URb26uE9w/edit?usp=sharing
-
-___
 
 ---
 
