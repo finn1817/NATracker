@@ -1,4 +1,4 @@
-### NATracker
+### ![NATracker](https://github.com/mcallbosco/NATracker/blob/main/GUI/icon2.png?raw=true)
 
 ---
 
