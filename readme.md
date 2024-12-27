@@ -1,14 +1,7 @@
 ### ![NATracker](https://github.com/mcallbosco/NATracker/blob/main/GUI/icon2.png?raw=true)
 
 ### What is this?
-NATracker is a file system journaling tool developed for **CSIT 435: Introduction to Operating Systems** at **SUNY Fredonia**. This program runs in the background and monitors changes in directories and files, providing functionality for setup, management, and replaying tracked data. It features a GUI for user interaction, as well as streamlined installation and uninstallation scripts. Don't expect too much from this, it was something developed for an assignment made to meet specific specifications, not as a comprehensive tool for public use. 
-
----
-
-### Presentation about this project 
-https://docs.google.com/presentation/d/17CdpKIwpxkrgSSI4P3ObL77Mcm-ZGDkNl4URb26uE9w/edit?usp=sharing
-
----
+NATracker is a file system journaling tool developed for **CSIT 435: Introduction to Operating Systems** at **SUNY Fredonia**. This program runs in the background and monitors changes in directories and files, providing functionality for setup, management, and replaying tracked data. It features a GUI for user interaction, as well as streamlined installation and uninstallation scripts. Don't expect too much from this, it was something developed for an assignment made to meet specific specifications, not as a comprehensive tool for public use. [Check out our presentation!](Presentation)
 
 ### Installation
 All necessary packages will be installed if not already installed using the install.sh script.
