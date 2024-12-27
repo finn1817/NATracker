@@ -47,5 +47,5 @@ sudo ./Install.sh
 
 ---
 
-###Limitations
+### Limitations
 It does not work with text editors that modify the Inode ID of the file, since that is what we used to identify the files. That means KWrite and nano works but gedit doesn't. 
