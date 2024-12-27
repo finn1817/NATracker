@@ -1,5 +1,8 @@
 ### ![NATracker](https://github.com/mcallbosco/NATracker/blob/main/GUI/icon2.png?raw=true)
 
+### What is this?
+NATracker is a file system journaling tool developed for **CSIT 435: Introduction to Operating Systems** at **SUNY Fredonia**. This program runs in the background and monitors changes in directories and files, providing functionality for setup, management, and replaying tracked data. It features a GUI for user interaction, as well as streamlined installation and uninstallation scripts. Don't expect too much from this, it was something developed as an assignment. 
+
 ---
 
 ### Presentation (Google Slides Link)
@@ -7,8 +10,19 @@ https://docs.google.com/presentation/d/17CdpKIwpxkrgSSI4P3ObL77Mcm-ZGDkNl4URb26u
 
 ___
 
-### Project Overview
-NATracker is a file system journaling tool developed for **CSIT 435: Introduction to Operating Systems** at **SUNY Fredonia**. This program runs in the background and monitors changes in directories and files, providing functionality for setup, management, and replaying tracked data. It features a GUI for user interaction, as well as streamlined installation and uninstallation scripts.
+---
+
+### Installation
+All necessary packages will be installed if not already installed using the install.sh script.
+
+This program is only intended to work on Ubuntu, but we have had success on other Linux distros like Debian and Mint.
+
+Download Install.sh from the repository, locate the file in the terminal, and run the following command to install:
+```bash
+wget https://raw.githubusercontent.com/mcallbosco/NATracker/refs/heads/main/Install.sh Install.sh
+chmod 777 Install.sh
+sudo ./Install.sh
+```
 
 ---
 
@@ -37,15 +51,4 @@ NATracker is a file system journaling tool developed for **CSIT 435: Introductio
 ### Shared Contributions
 - The entire team collaborated equally on the **Install.sh** script.
 
----
 
-### Installation
-All necessary packages will be installed if not already installed using the install.sh script.
-
-This program is only intended to work on Ubuntu, but we have had success on other Linux distros like Debian and Mint.
-
-Download Install.sh from the repository, locate the file in the terminal, and run the following command to install:
-```bash
-wget https://raw.githubusercontent.com/mcallbosco/NATracker/refs/heads/main/Install.sh Install.sh
-chmod 777 Install.sh
-sudo ./Install.sh
